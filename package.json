@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "ajv": "^6.0.0",
+    "bootstrap": "^3.3.7",
+    "jquery": "^1.11.1",
+    "metrics-graphics": "^2.11.0",
+    "npm": "^6.1.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-metrics-graphics": "^1.0.3",
     "react-scripts": "1.1.4"
   },
   "scripts": {
