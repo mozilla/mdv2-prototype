@@ -3,7 +3,6 @@ import "./App.css";
 import {Navigation} from "./Components/Navigation.js";
 import {ViewSelector} from "./Components/ViewSelector.js";
 import {MetricSelector} from "./Components/MetricSelector.js";
-import {Grid, Row} from "react-bootstrap";
 
 class App extends React.Component {
   constructor(props) {
