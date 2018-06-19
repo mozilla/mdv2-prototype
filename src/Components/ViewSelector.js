@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Nav} from "react-bootstrap";
 import {NavItem} from "react-bootstrap";
 
-export class ViewChanger extends Component {
+export class ViewSelector extends React.Component {
   render() {
     return (
       <Nav bsStyle="tabs" activeKey="1">
