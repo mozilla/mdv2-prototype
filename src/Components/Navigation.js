@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Nav} from "react-bootstrap";
 import {NavItem} from "react-bootstrap";
 import {Navbar} from "react-bootstrap";
-import {Glyphicon} from "react-bootstrap";
 
 export class Navigation extends Component {
   render() {
@@ -15,16 +14,16 @@ export class Navigation extends Component {
         <Navbar.Collapse>
           <Nav>
             <NavItem>
-              <Glyphicon glyph="link" /> Get Shortlink
+              <i className="fas fa-link"></i> Get Shortlink
             </NavItem>
             <NavItem target="_blank" href="https://github.com/mozilla/telemetry-dashboard/issues">
-              <Glyphicon glyph="wrench" /> Report a Bug
+              <i className="fas fa-bug"></i> Report a Bug
             </NavItem>
             <NavItem target="_blank" href="https://telemetry.mozilla.org/">
-              <Glyphicon glyph="home" /> Telemetry Portal
+              <i className="fas fa-home"></i> Telemetry Portal
             </NavItem>
             <NavItem target="_blank" href="https://telemetry.mozilla.org/new-pipeline/tutorial.html#HistogramDashboard">
-              <Glyphicon glyph="book" /> Usage Tutorial
+              <i className="far fa-question-circle"></i> Usage Tutorial
             </NavItem>
           </Nav>
         </Navbar.Collapse>
