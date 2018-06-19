@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import {Nav} from "react-bootstrap";
+import {NavItem} from "react-bootstrap";
 
 export class ViewChanger extends Component {
   render() {
     return (
-      <ul className='nav nav-tabs view-changer'>
-        <li className='nav-item'>
-          <a className='nav-link summary active' href='#'>Summary</a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link distribution' href='#'>Distribution</a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link comparison' href='#'>Comparison</a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link evolution' href='#'>Evolution</a>
-        </li>
-      </ul>
-    )
+      <Nav bsStyle="tabs" activeKey="1">
+        <NavItem eventKey="1" title="summary" href="#">
+          Summary
+        </NavItem>
+        <NavItem eventKey="2" title="distribution">
+          Distribution
+        </NavItem>
+        <NavItem eventKey="3" title="comparison">
+          Comparison
+        </NavItem>
+        <NavItem eventKey="4" title="evolution">
+          Evolution
+        </NavItem>
+      </Nav>
+    );
   }
 }

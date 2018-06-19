@@ -8,8 +8,9 @@
     "jquery": "^1.11.1",
     "metrics-graphics": "^2.11.0",
     "npm": "^6.1.0",
-    "react": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "^0.14.9",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^0.14.9",
     "react-metrics-graphics": "^1.0.3",
     "react-scripts": "1.1.4"
   },
