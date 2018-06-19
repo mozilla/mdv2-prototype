@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Navigation} from './Components/Navigation.js'
-import {ViewChanger} from './Components/ViewChanger.js'
+import {Navigation} from './Components/Navigation.js';
+import {ViewSelector} from './Components/ViewSelector.js';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className='app'>
         <Navigation />
-        <ViewChanger />
+        <ViewSelector />
       </div>
     );
   }
