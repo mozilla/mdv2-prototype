@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import {Nav} from "react-bootstrap";
-import {NavItem} from "react-bootstrap";
-import {Navbar} from "react-bootstrap";
+import React from "react";
+import {Nav, NavItem, Navbar} from "react-bootstrap";
 
-export class Navigation extends Component {
+export class Navigation extends React.Component {
   render() {
     return (
-      <Navbar collapseOnSelect>
+      <Navbar fluid collapseOnSelect>
         <Navbar.Header className="header">
-          Measurement Dashboard
+          <Navbar.Brand>
+            Measurement Dashboard
+          </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>

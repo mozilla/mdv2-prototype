@@ -12,7 +12,8 @@
     "react-bootstrap": "^0.32.1",
     "react-dom": "^0.14.9",
     "react-metrics-graphics": "^1.0.3",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-select": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

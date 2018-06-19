@@ -27,6 +27,6 @@
   to { transform: rotate(360deg); }
 }
 
-.header {
-  font-size: 36px;
+.search-bar {
+  text-align: center;
 }
