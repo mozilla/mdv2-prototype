@@ -10,14 +10,12 @@ class App extends React.Component {
     this.state = {
     metricQuery: "",
     }
-    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange (event) {
+  handleInputChange = (event) => {
     this.setState({
     metricQuery: event.target.value
     })
-    console.log(this.state.metricQuery);
   }
 
   render() {
