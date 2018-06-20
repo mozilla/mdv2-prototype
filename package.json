@@ -4,9 +4,7 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.0.0",
-    "bootstrap": "^3.3.7",
     "jquery": "^1.11.1",
-    "metrics-graphics": "^2.11.0",
     "npm": "^6.1.0",
     "react": "^0.14.9",
     "react-bootstrap": "^0.32.1",
