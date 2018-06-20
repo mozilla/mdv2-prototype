@@ -8,13 +8,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    metricQuery: "",
+      metricQuery: "",
     }
   }
 
   handleInputChange = (event) => {
     this.setState({
-    metricQuery: event.target.value
+      metricQuery: event.target.value,
     })
   }
 
