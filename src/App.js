@@ -37,10 +37,9 @@ class App extends React.Component {
       <div className="app">
         <Navigation />
         <MetricSelector
-          metricQuery = {this.state.metricQuery}
-          handleInputChange = {this.handleInputChange}
+          metric = {this.state.metric}
+          selectMetric = {this.selectMetric}
         />
-        <br />
         <ViewSelector
           metric = {this.state.metric}
           channel = {this.state.channel}
