@@ -10,7 +10,7 @@ export class MetricSelector extends React.Component {
             <h2>My Metric:</h2>
             <input
               ref={input => this.search = input}
-              onChange={this.props.handleInputChange}
+              onChange={this.props.selectMetric}
             />
           </form>
         </Row>
