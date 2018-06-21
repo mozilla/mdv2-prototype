@@ -1,23 +1,36 @@
-import React from "react";
-import {Nav, NavItem} from "react-bootstrap";
+import React, {Component} from "react";
+import {Tabs, Tab} from "react-bootstrap";
+import {SummaryView} from "./SummaryView.js";
 
-export class ViewSelector extends React.Component {
+export class ViewSelector extends Component {
   render() {
     return (
-        <Nav bsStyle="tabs" activeKey="1">
-          <NavItem eventKey="1" title="summary" href="#">
-            Summary
-          </NavItem>
-          <NavItem eventKey="2" title="distribution">
-            Distribution
-          </NavItem>
-          <NavItem eventKey="3" title="comparison">
-            Comparison
-          </NavItem>
-          <NavItem eventKey="4" title="evolution">
-            Evolution
-          </NavItem>
-        </Nav>
+      <Tabs
+        defaultActiveKey={1}
+        id="view-tabs"
+      >
+        <Tab
+          eventKey={1}
+          title="Summary"
+        >
+          <SummaryView />
+        </Tab>
+        <Tab
+          eventKey={2}
+          title="Distribution"
+        >
+        </Tab>
+        <Tab
+          eventKey={3}
+          title="Comparison"
+        >
+        </Tab>
+        <Tab
+          eventKey={4}
+          title="Evolution"
+        >
+        </Tab>
+      </Tabs>
     );
   }
 }

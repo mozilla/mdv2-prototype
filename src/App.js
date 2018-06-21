@@ -8,13 +8,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      metricQuery: "",
+      metric: "",
+      version: "",
+      channel: "",
     }
   }
 
-  handleInputChange = (event) => {
+  selectMetric = (event) => {
     this.setState({
-      metricQuery: event.target.value,
+      metric: event.target.value,
+    })
+  }
+
+  selectVersion = (event) => {
+    this.setState({
+      version: event.target.value,
+    })
+  }
+
+  selectChannel = (event) => {
+    this.setState({
+      channel: event.target.value,
     })
   }
 
@@ -24,8 +38,14 @@ class App extends React.Component {
         <Navigation />
         <MetricSelector
           metricQuery = {this.state.metricQuery}
-          handleInputChange = {this.handleInputChange}/>
-        <ViewSelector />
+          handleInputChange = {this.handleInputChange}
+        />
+        <br />
+        <ViewSelector
+          metric = {this.state.metric}
+          channel = {this.state.channel}
+          version = {this.state.version}
+        />
       </div>
     );
   }
