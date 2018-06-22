@@ -1,34 +1,40 @@
 import React, {Component} from "react";
 import {Tabs, Tab} from "react-bootstrap";
 import {SummaryView} from "./SummaryView.js";
+import {DistributionView} from "./DistributionView.js";
+import {ComparisonView} from "./ComparisonView.js";
+import {EvolutionView} from "./EvolutionView.js";
 
 export class ViewSelector extends Component {
   render() {
     return (
       <Tabs
-        defaultActiveKey={1}
+        defaultActiveKey={"sum"}
         id="view-tabs"
       >
         <Tab
-          eventKey={1}
+          eventKey={"sum"}
           title="Summary"
         >
           <SummaryView />
         </Tab>
         <Tab
-          eventKey={2}
+          eventKey={"dist"}
           title="Distribution"
         >
+          <DistributionView />
         </Tab>
         <Tab
-          eventKey={3}
+          eventKey={"comp"}
           title="Comparison"
         >
+          <ComparisonView />
         </Tab>
         <Tab
-          eventKey={4}
+          eventKey={"evo"}
           title="Evolution"
         >
+          <EvolutionView />
         </Tab>
       </Tabs>
     );
