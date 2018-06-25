@@ -2,7 +2,7 @@
   "name": "mdv2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://USERNAME.github.io/mdv2/"
+  "homepage": "https://mozilla.github.io/mdv2/"
   "dependencies": {
     "ajv": "^6.0.0",
     "css-loader": "^0.28.11",
