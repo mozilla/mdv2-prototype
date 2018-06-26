@@ -16,14 +16,11 @@ export class Navigation extends React.Component {
             <NavItem>
               <i className="fas fa-link"></i> Get Shortlink
             </NavItem>
-            <NavItem target="_blank" href="https://github.com/mozilla/telemetry-dashboard/issues">
+            <NavItem href="https://github.com/mozilla/telemetry-dashboard/issues">
               <i className="fas fa-bug"></i> Report a Bug
             </NavItem>
-            <NavItem target="_blank" href="https://telemetry.mozilla.org/">
+            <NavItem href="https://telemetry.mozilla.org/">
               <i className="fas fa-home"></i> Telemetry Portal
-            </NavItem>
-            <NavItem target="_blank" href="https://telemetry.mozilla.org/new-pipeline/tutorial.html#HistogramDashboard">
-              <i className="far fa-question-circle"></i> Usage Tutorial
             </NavItem>
           </Nav>
         </Navbar.Collapse>
