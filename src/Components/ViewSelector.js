@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Tabs, Tab, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Tabs, Tab} from "react-bootstrap";
 import {SummaryView} from "./SummaryView.js";
 import {DistributionView} from "./DistributionView.js";
 import {ComparisonView} from "./ComparisonView.js";
