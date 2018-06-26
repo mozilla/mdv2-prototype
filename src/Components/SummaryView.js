@@ -11,9 +11,9 @@ export class SummaryView extends Component {
           </p>
         </Row>
         <Row>
-          <p>The median value for this probe is...</p>
-          <p>The 95th percentile for this probe is...</p>
-          <p>Since the last version, the median value for this probe has (increased/decreased) by...</p>
+          <p>The median value for {this.props.activeMetric} is...</p>
+          <p>The 95th percentile for {this.props.activeMetric} is...</p>
+          <p>Since {this.props.activeChannel} version {this.props.activeVersion - 1}, the median value for {this.props.activeMetric} has (increased/decreased) by...</p>
         </Row>
       </Grid>
     )

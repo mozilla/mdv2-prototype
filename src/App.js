@@ -5,13 +5,14 @@ import {ViewSelector} from "./Components/ViewSelector.js";
 import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
+import metricData from "./data/metrics.js";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activeMetric: "GC_MS",
-      metricOptions: ["GC_MS", "AUTOFILL_AVAILABILITY", "TAB_COUNT"],
+      metricOptions: metricData,
       activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
@@ -59,10 +60,10 @@ class App extends React.Component {
         />
         <br />
         <ViewSelector
-          metric = {this.state.metric}
-          channel = {this.state.channel}
-          version = {this.state.version}
-          data = {this.state.data}
+          activeMetric = {this.state.activeMetric}
+          activeChannel = {this.state.activeChannel}
+          activeVersion = {this.state.activeVersion}
+          currentData = {this.state.currentData}
         />
       </div>
     );
