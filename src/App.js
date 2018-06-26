@@ -15,7 +15,7 @@ class App extends React.Component {
       activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
-      channelOptions: ["nightly", "beta", "dev edition", "release"]
+      channelOptions: ["nightly", "beta", "dev edition", "release"],
     }
   }
 
@@ -62,6 +62,7 @@ class App extends React.Component {
           metric = {this.state.metric}
           channel = {this.state.channel}
           version = {this.state.version}
+          data = {this.state.data}
         />
       </div>
     );

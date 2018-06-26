@@ -1,11 +1,16 @@
 import React, {Component} from "react";
+import {Grid, Row} from "react-bootstrap";
 
 export class EvolutionView extends Component {
   render() {
     return (
-      <div className="evo-view">
-        <h2>Evolution</h2>
-      </div>
+      <Grid  className="evolve-view" fluid>
+        <Row>
+          <p>
+            <i className="fas fa-info-circle"></i> The evolution view shows the evolution of a given aggregate over time.
+          </p>
+        </Row>
+      </Grid>
     )
   }
 }
