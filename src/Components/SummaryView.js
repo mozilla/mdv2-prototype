@@ -13,7 +13,7 @@ export class SummaryView extends Component {
         <Row>
           <p>The median value for {this.props.activeMetric} is...</p>
           <p>The 95th percentile for {this.props.activeMetric} is...</p>
-          <p>Since {this.props.activeChannel} version {this.props.activeVersion - 1}, the median value for {this.props.activeMetric} has (increased/decreased) by...</p>
+          <p>Since {this.props.activeChannel} {this.props.activeVersion - 1}, the median value for {this.props.activeMetric} has (increased/decreased) by...</p>
         </Row>
       </Grid>
     )
