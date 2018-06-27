@@ -63,7 +63,12 @@ class App extends React.Component {
           activeMetric = {this.state.activeMetric}
           activeChannel = {this.state.activeChannel}
           activeVersion = {this.state.activeVersion}
+<<<<<<< HEAD
           currentData = {this.state.currentData}
+=======
+          onMetricChange = {this.onMetricChange}
+          metricOptions = {this.state.metricOptions}
+>>>>>>> d4e7ad852b02c98793bf085545c08fb5c263ed73
         />
       </div>
     );
