@@ -16,7 +16,7 @@ export class Navigation extends React.Component {
             <NavItem>
               <i className="fas fa-link"></i> Get Shortlink
             </NavItem>
-            <NavItem target="_blank" href="https://github.com/mozilla/telemetry-dashboard/issues">
+            <NavItem href="https://github.com/mozilla/telemetry-dashboard/issues">
               <i className="fas fa-bug"></i> Report a Bug
             </NavItem>
             <NavItem href="https://telemetry.mozilla.org/">
