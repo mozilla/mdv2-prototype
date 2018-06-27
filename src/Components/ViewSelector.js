@@ -14,25 +14,25 @@ export class ViewSelector extends Component {
       >
         <Tab
           eventKey={"sum"}
-          title="Summary"
+          title={<span><i className="fas fa-chart-pie"></i> Summary</span>}
         >
           <SummaryView />
         </Tab>
         <Tab
           eventKey={"dist"}
-          title="Distribution"
+          title={<span><i className="far fa-chart-bar"></i> Distribution</span>}
         >
           <DistributionView />
         </Tab>
         <Tab
           eventKey={"comp"}
-          title="Comparison"
+          title={<span><i className="fas fa-chart-area"></i> Comparison</span>}
         >
           <ComparisonView />
         </Tab>
         <Tab
           eventKey={"evo"}
-          title="Evolution"
+          title={<span><i className="fas fa-chart-line"></i> Evolution</span>}
         >
           <EvolutionView />
         </Tab>
