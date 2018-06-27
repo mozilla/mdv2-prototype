@@ -59,10 +59,9 @@ class App extends React.Component {
         />
         <br />
         <ViewSelector
-          metric = {this.state.metric}
-          channel = {this.state.channel}
-          version = {this.state.version}
-          data = {this.state.data}
+          activeMetric = {this.state.activeMetric}
+          onMetricChange = {this.onMetricChange}
+          metricOptions = {this.state.metricOptions}
         />
       </div>
     );
