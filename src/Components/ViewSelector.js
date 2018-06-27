@@ -16,7 +16,11 @@ export class ViewSelector extends Component {
           eventKey={"sum"}
           title={<span><i className="fas fa-chart-pie"></i> Summary</span>}
         >
-          <SummaryView />
+          <SummaryView
+            activeVersion = {this.props.activeVersion}
+            activeMetric = {this.props.activeMetric}
+            activeChannel = {this.props.activeChannel}
+          />
         </Tab>
         <Tab
           eventKey={"dist"}
