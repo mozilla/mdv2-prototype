@@ -22,7 +22,9 @@ export class ViewSelector extends Component {
           eventKey={"dist"}
           title={<span><i className="far fa-chart-bar"></i> Distribution</span>}
         >
-          <DistributionView />
+          <DistributionView
+            activeMetric = {this.props.activeMetric}
+          />
         </Tab>
         <Tab
           eventKey={"comp"}
