@@ -43,7 +43,7 @@ class App extends React.Component {
           "proportion": 0.00001493796241457452
         },
       ],
-      change: -4,
+      change: "",
       nfifthPercentile: 99,
       median: 42,
       lastMedian: 40,
