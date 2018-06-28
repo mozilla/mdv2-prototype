@@ -1,0 +1,51 @@
+[
+  {
+    "start": 0,
+    "end": 1,
+    "label": "AlreadyHTTPS",
+    "count": 12365223179,
+    "proportion": 0.7513397184120842
+  },
+  {
+    "start": 1,
+    "end": 2,
+    "label": "NoReasonToUpgrade",
+    "count": 4012889179,
+    "proportion": 0.24383247935539049
+  },
+  {
+    "start": 2,
+    "end": 3,
+    "label": "PrefBlockedSTS",
+    "count": 31589,
+    "proportion": 0.0000019194211071925634
+  },
+  {
+    "start": 3,
+    "end": 4,
+    "label": "STS",
+    "count": 72912537,
+    "proportion": 0.004430335322319756
+  },
+  {
+    "start": 4,
+    "end": 5,
+    "label": "CSP",
+    "count": 6494495,
+    "proportion": 0.0003946206003276309
+  },
+  {
+    "start": 5,
+    "end": 6,
+    "label": "BrowserDisplay",
+    "count": 15254,
+    "proportion": 9.268887706527936e-7
+  },
+  {
+    "start": 6,
+    "end": 7,
+    "label": "spill",
+    "count": 0,
+    "proportion": 0
+  }
+]
