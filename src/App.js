@@ -11,6 +11,42 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentData: [
+        {
+          "start": 0,
+          "end": 1,
+          "count": 1623,
+          "proportion": 0.000011537046015254444
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "count": 41,
+          "proportion": 2.8913714335682874e-7
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "count": 201,
+          "proportion": 0.0000014314658572747914
+        },
+        {
+          "start": 3,
+          "end": 4,
+          "count": 878,
+          "proportion": 0.000006240148348020738
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "count": 2101,
+          "proportion": 0.00001493796241457452
+        },
+      ],
+      change: "",
+      nfifthPercentile: 99,
+      median: 42,
+      lastMedian: 40,
       activeMetric: "GC_MS",
       metricOptions: metricData,
       activeVersion: "62",
@@ -18,6 +54,10 @@ class App extends React.Component {
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
     }
+  }
+
+  componentDidMount = () => {
+    this.getChange();
   }
 
   onMetricChange = (value) => {
@@ -38,9 +78,16 @@ class App extends React.Component {
     })
   }
 
+  getChange = () => {
+    var rawChange = this.state.median - this.state.lastMedian;
+    var pctChange = (rawChange / this.state.lastMedian) * 100;
+    var roundedChange = pctChange.toFixed(2)
+    this.setState({change: roundedChange});
+  }
+
   render() {
     return (
-      <div className="app">
+      <div className="App">
         <Navigation />
         <MetricSelector
           activeMetric = {this.state.activeMetric}
@@ -60,11 +107,15 @@ class App extends React.Component {
         />
         <br />
         <ViewSelector
+          currentData = {this.state.currentData}
           activeMetric = {this.state.activeMetric}
           activeChannel = {this.state.activeChannel}
           activeVersion = {this.state.activeVersion}
           onMetricChange = {this.onMetricChange}
           metricOptions = {this.state.metricOptions}
+          change = {this.state.change}
+          median = {this.state.median}
+          nfifthPercentile = {this.state.nfifthPercentile}
         />
       </div>
     );
