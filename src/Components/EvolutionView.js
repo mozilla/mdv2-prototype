@@ -18,8 +18,6 @@ export class EvolutionView extends Component {
           <MetricsGraphics
             title={this.props.activeMetric}
             data={this.props.currentData}
-            full_height={true}
-            full_width={true}
             x_label={this.props.activeMetric}
             y_label="Proportion of Users"
             y_accessor="proportion"
