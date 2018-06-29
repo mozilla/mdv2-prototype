@@ -10,11 +10,11 @@ export class ViewSelector extends Component {
     return (
       <div>
         <Tabs
-          defaultActiveKey={"sum"}
+          defaultActiveKey={"summary"}
           id="view-tabs"
         >
           <Tab
-            eventKey={"sum"}
+            eventKey={"summary"}
             title={<span><i className="fas fa-chart-pie"></i> Summary</span>}
           >
             <SummaryView
@@ -27,7 +27,7 @@ export class ViewSelector extends Component {
             />
           </Tab>
           <Tab
-            eventKey={"dist"}
+            eventKey={"distribution"}
             title={<span><i className="far fa-chart-bar"></i> Distribution</span>}
           >
             <DistributionView
@@ -36,13 +36,13 @@ export class ViewSelector extends Component {
             />
           </Tab>
           <Tab
-            eventKey={"comp"}
+            eventKey={"comparison"}
             title={<span><i className="fas fa-chart-area"></i> Comparison</span>}
           >
             <ComparisonView />
           </Tab>
           <Tab
-            eventKey={"evo"}
+            eventKey={"evolution"}
             title={<span><i className="fas fa-chart-line"></i> Evolution</span>}
           >
             <EvolutionView
