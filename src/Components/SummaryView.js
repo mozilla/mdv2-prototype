@@ -12,9 +12,9 @@ export class SummaryView extends Component {
         </Row>
         <Row>
           <h3>Median: {this.props.median}</h3>
-          <p>The median value for {this.props.activeMetric} is {this.props.median}</p>
+          <p>The median value for {this.props.activeMetric} is {this.props.median}.</p>
           <h3>95th Percentile: {this.props.nfifthPercentile}</h3>
-          <p>The 95th percentile for {this.props.activeMetric} is {this.props.nfifthPercentile}</p>
+          <p>The 95th percentile for {this.props.activeMetric} is {this.props.nfifthPercentile}.</p>
           <h3>
             {this.props.change > 0 &&
               <i className="fas fa-arrow-up"></i>
@@ -28,7 +28,7 @@ export class SummaryView extends Component {
             }
             {this.props.change < 0 &&
               " decreased"
-            } by {this.props.change}%</p>
+            } by {this.props.change}%.</p>
         </Row>
       </Grid>
     )
