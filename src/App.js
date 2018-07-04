@@ -98,7 +98,6 @@ class App extends React.Component {
           change = {this.state.change}
           median = {this.state.median}
           nfifthPercentile = {this.state.nfifthPercentile}
-          getPercentile = {this.getPercentile}
         />
       </div>
     );

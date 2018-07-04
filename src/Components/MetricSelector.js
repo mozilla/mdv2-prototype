@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid, Row} from "react-bootstrap";
-import Autosuggest, {ItemAdapter} from "react-bootstrap-autosuggest";
+import Autosuggest from "react-bootstrap-autosuggest";
 import "react-bootstrap-autosuggest/src/Autosuggest.scss";
 
 export class MetricSelector extends React.Component {
@@ -14,7 +14,6 @@ export class MetricSelector extends React.Component {
               datalist={this.props.metricOptions}
               placeholder={this.props.activeMetric}
               ref={input => this.search = input}
-              itemAdapter={ItemAdapter.instance}
             />
           </form>
         </Row>
