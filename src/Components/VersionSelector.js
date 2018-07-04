@@ -1,11 +1,12 @@
 import React from "react";
 import {Grid, Row} from "react-bootstrap";
-import Autosuggest from "react-bootstrap-autosuggest"
+import Autosuggest from "react-bootstrap-autosuggest";
+import "react-bootstrap-autosuggest/src/Autosuggest.scss";
 
 export class VersionSelector extends React.Component {
   render () {
     return (
-      <Grid className="search-bar" fluid>
+      <Grid className="version-search-bar" fluid>
         <Row>
           <form>
             <Autosuggest

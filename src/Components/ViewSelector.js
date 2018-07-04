@@ -24,6 +24,7 @@ export class ViewSelector extends Component {
               change = {this.props.change}
               median = {this.props.median}
               nfifthPercentile = {this.props.nfifthPercentile}
+              getChange = {this.props.getChange}
             />
           </Tab>
           <Tab
