@@ -33,8 +33,10 @@ class App extends React.Component {
     }).then(data => {
       var probeData = Object.values(data);
       var metrics = probeData.map(item => item.name);
-      this.setState({probeInfo: probeData,})
-      this.setState({metricOptions: metrics,})
+      this.setState({
+        probeInfo: probeData,
+        metricOptions: metrics,
+      });
     });
   }
 
