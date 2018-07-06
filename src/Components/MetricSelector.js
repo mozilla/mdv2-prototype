@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid, Row} from "react-bootstrap";
-import Autosuggest from "react-bootstrap-autosuggest"
+import Autosuggest from "react-bootstrap-autosuggest";
 
 export class MetricSelector extends React.Component {
   render () {
@@ -17,6 +17,6 @@ export class MetricSelector extends React.Component {
           </form>
         </Row>
       </Grid>
-    )
+    );
   }
 }

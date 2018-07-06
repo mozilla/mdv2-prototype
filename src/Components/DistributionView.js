@@ -13,7 +13,7 @@ export class DistributionView extends Component {
   }
 
   handleChange = (event) => {
-    this.setState({mode : event,})
+    this.setState({mode : event,});
   }
 
   render() {
@@ -60,6 +60,6 @@ export class DistributionView extends Component {
           }
         </Row>
       </Grid>
-    )
+    );
   }
 }

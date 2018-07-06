@@ -6,7 +6,7 @@ import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
 import metricData from "./data/metrics.js";
-import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json"
+import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class App extends React.Component {
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
-    }
+    };
   }
 
   componentWillMount = () => {
@@ -85,25 +85,25 @@ class App extends React.Component {
   onMetricChange = (value) => {
     this.setState({
       activeMetric: value,
-    })
+    });
   }
 
   onVersionChange = (value) => {
     this.setState({
       activeVersion: value,
-    })
+    });
   }
 
   onChannelChange = (value) => {
     this.setState({
       activeChannel: value,
-    })
+    });
   }
 
   getChange = () => {
     var rawChange = this.state.median - this.state.lastMedian;
     var pctChange = (rawChange / this.state.lastMedian) * 100;
-    var roundedChange = pctChange.toFixed(2)
+    var roundedChange = pctChange.toFixed(2);
     this.setState({change: roundedChange});
   }
 

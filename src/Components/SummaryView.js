@@ -31,6 +31,6 @@ export class SummaryView extends Component {
             } by {this.props.change}%.</p>
         </Row>
       </Grid>
-    )
+    );
   }
 }

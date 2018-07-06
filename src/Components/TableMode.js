@@ -27,6 +27,6 @@ export class TableMode extends Component {
           </tbody>
         </Table>
       </div>
-    )
+    );
   }
 }

@@ -15,6 +15,6 @@ export class ComparisonView extends Component {
           </Col>
         </Row>
       </Grid>
-    )
+    );
   }
 }
