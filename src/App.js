@@ -56,6 +56,10 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    this.getChange();
+  }
+
   onMetricChange = (value) => {
     this.setState({
       activeMetric: value,
