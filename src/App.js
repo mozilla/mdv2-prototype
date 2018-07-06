@@ -16,7 +16,7 @@ class App extends React.Component {
       change: "",
       nfifthPercentile: "",
       median: "",
-      lastMedian: 400,
+      lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
       activeVersion: "62",
@@ -27,8 +27,8 @@ class App extends React.Component {
   }
 
   componentWillMount = () => {
-    var med = this.getPercentile(50).toFixed(2);
-    var nfifth = this.getPercentile(95).toFixed(2);
+    let med = this.getPercentile(50).toFixed(2);
+    let nfifth = this.getPercentile(95).toFixed(2);
     this.setState({
       median: med,
       nfifthPercentile: nfifth,
@@ -40,40 +40,37 @@ class App extends React.Component {
   }
 
   getLastBucketUpper = () => {
-    var buckets = this.state.currentData.map(item => item.start);
-    var lastBucketUpper;
-    console.log(buckets);
+    let buckets = this.state.currentData.map(item => item.start);
+    let lastBucketUpper;
     if (this.state.currentData.length === 1) {
       lastBucketUpper = buckets[0] + 1;
     } else {
       /*if (this.state.activeMetric.type === "linear" || this.state.activeMetric.type === "flag" || this.state.activeMetric.type ===
       "boolean" || this.state.activeMetric.type === "enumerated") {
         lastBucketUpper = buckets[buckets.length - 1] + buckets[buckets.length - 1]
-            - buckets[buckets.length -2];
+        - buckets[buckets.length -2];
       } else {*/
-      lastBucketUpper = buckets[buckets.length - 1] *
-      buckets[buckets.length - 1] /
-      buckets[buckets.length - 2];
+        lastBucketUpper = buckets[buckets.length - 1] * buckets[buckets.length - 1] / buckets[buckets.length - 2];
       //}
     }
     return lastBucketUpper;
   };
 
   getPercentile = (percentile) => {
-    var buckets = this.state.currentData.map(item => item.start);
+    let buckets = this.state.currentData.map(item => item.start);
     buckets = buckets.concat([this.getLastBucketUpper()]);
-    var values = this.state.currentData.map(item => item.count);
+    let values = this.state.currentData.map(item => item.count);
     //var linearTerm = buckets[buckets.length - 1] - buckets[buckets.length - 2];
-    var exponentialFactor = buckets[buckets.length - 1] / buckets[buckets.length - 2];
-    var percentileCount = values.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * (percentile / 100);
-    var percentileBucketIndex = 0;
+    let exponentialFactor = buckets[buckets.length - 1] / buckets[buckets.length - 2];
+    let percentileCount = values.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * (percentile / 100);
+    let percentileBucketIndex = 0;
     while (percentileCount >= 0) {
       percentileCount -= this.state.currentData[percentileBucketIndex].count;
       percentileBucketIndex++;
     }
     percentileBucketIndex--;
     percentileCount += this.state.currentData[percentileBucketIndex].count;
-    var ratioInBar = percentileCount / this.state.currentData[percentileBucketIndex].count;
+    let ratioInBar = percentileCount / this.state.currentData[percentileBucketIndex].count;
     /*if (this.kind === "linear" || this.kind === "flag" || this.kind ===
     "boolean" || this.kind === "enumerated") {
       return buckets[percentileBucketIndex] + linearTerm * ratioInBar;
