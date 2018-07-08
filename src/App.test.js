@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App, getCurrentData, getProbeInfo from './App';
+import App from './App';
 import fetchMock from "fetch-mock";
 
 fetchMock.get("*", {hello: "world"});
 
-getCurrentData().then(function(data) {
+this.getCurrentData().then(function(data) {
   console.log("got data", data);
 });
 
-getProbeInfo().then(function(data) {
+this.getProbeInfo().then(function(data) {
   console.log("got data", data);
 });
 
