@@ -56,8 +56,24 @@ class App extends React.Component {
     }
   }
 
+  componentWillMount = () => {
+    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
+      .then(response => response.json())
+      .then(data => this.setState({
+        currentData: data,
+      }));
+  }
+
   componentDidMount = () => {
     this.getChange();
+  }
+
+  componentDidUpdate = () => {
+    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
+      .then(response => response.json())
+      .then(data => this.setState({
+        currentData: data,
+      }));
   }
 
   onMetricChange = (value) => {
