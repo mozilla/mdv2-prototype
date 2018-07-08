@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import fetchMock from "fetch-mock";
+import fetchMock from "./../node_modules/fetch-mock";
 
 fetchMock.get("*", {hello: "world"});
 
