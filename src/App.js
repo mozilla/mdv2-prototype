@@ -11,38 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentData: [
-        {
-          "start": 0,
-          "end": 1,
-          "count": 1623,
-          "proportion": 0.000011537046015254444
-        },
-        {
-          "start": 1,
-          "end": 2,
-          "count": 41,
-          "proportion": 2.8913714335682874e-7
-        },
-        {
-          "start": 2,
-          "end": 3,
-          "count": 201,
-          "proportion": 0.0000014314658572747914
-        },
-        {
-          "start": 3,
-          "end": 4,
-          "count": 878,
-          "proportion": 0.000006240148348020738
-        },
-        {
-          "start": 4,
-          "end": 5,
-          "count": 2101,
-          "proportion": 0.00001493796241457452
-        },
-      ],
+      currentData: [],
       change: "",
       nfifthPercentile: 99,
       median: 42,
