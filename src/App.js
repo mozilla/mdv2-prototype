@@ -6,6 +6,7 @@ import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
 import metricData from "./data/metrics.js";
+import fetch from "node-fetch";
 
 class App extends React.Component {
   constructor(props) {
@@ -57,8 +58,16 @@ class App extends React.Component {
   }
 
   componentWillMount = () => {
-    this.getCurrentData();
-    this.getProbeInfo();
+    fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
+      .then(response => response.json())
+      .then(data => {
+        var probeData = Object.values(data);
+        var metrics = probeData.map(item => item.name);
+        this.setState({
+          probeInfo: probeData,
+          metricOptions: metrics,
+        });
+      });
   }
 
   componentDidMount = () => {
@@ -66,18 +75,6 @@ class App extends React.Component {
   }
 
   componentDidUpdate = () => {
-    this.getCurrentData();
-  }
-
-  getCurrentData = () => {
-    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
-      .then(response => response.json())
-      .then(data => this.setState({
-        currentData: data,
-      }));
-  }
-
-  getProbeInfo = () => {
     fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
       .then(response => response.json())
       .then(data => {
