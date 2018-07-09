@@ -186,16 +186,16 @@
   "private": true,
   "homepage": "https://mozilla.github.io/mdv2/",
   "dependencies": {
-    "ajv": "^6.0.0",
+    "ajv": "^6.5.2",
     "css-loader": "^0.28.11",
-    "jquery": "^1.11.1",
-    "metrics-graphics": "^2.11.0",
-    "node-sass": "^4.9.0",
+    "jquery": "^1.12.4",
+    "metrics-graphics": "^2.15.6",
+    "node-sass": "^4.9.2",
     "npm": "^6.1.0",
-    "react": "^16.0.0",
+    "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-autosuggest": "^0.5.0",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.4.1",
     "react-metrics-graphics": "^1.0.6",
     "react-scripts": "1.1.4",
     "sass-loader": "^7.0.3",
@@ -209,6 +209,6 @@
   },
   "devDependencies": {
     "gh-pages": "^1.2.0",
-    "prettier-eslint": "^8.8.1"
+    "prettier-eslint": "^8.8.2"
   }
 }

@@ -7,6 +7,7 @@ import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
 import metricData from "./data/metrics.js";
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
+import fetch from "isomorphic-fetch";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
+    this.getProbeInfo();
     this.getChange();
   }
 
@@ -78,6 +80,19 @@ class App extends React.Component {
     return buckets[percentileBucketIndex] * Math.pow(exponentialFactor, ratioInBar);
     //}
   };
+
+  getProbeInfo = () => {
+    fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
+      .then(response => response.json())
+      .then(data => {
+        var probeData = Object.values(data);
+        var metrics = probeData.map(item => item.name);
+        this.setState({
+          probeInfo: probeData,
+          metricOptions: metrics,
+        });
+      });
+  }
 
   onMetricChange = (value) => {
     this.setState({

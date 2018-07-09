@@ -1,11 +1,12 @@
 import React from "react";
 import {Grid, Row} from "react-bootstrap";
 import Autosuggest from "react-bootstrap-autosuggest";
+import "react-bootstrap-autosuggest/src/Autosuggest.scss";
 
 export class MetricSelector extends React.Component {
   render () {
     return (
-      <Grid className="search-bar" fluid>
+      <Grid className="metric-search-bar" fluid>
         <Row>
           <form>
             <Autosuggest
