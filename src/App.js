@@ -57,24 +57,12 @@ class App extends React.Component {
     }
   }
 
-  componentWillMount = () => {
-    fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
-      .then(response => response.json())
-      .then(data => {
-        var probeData = Object.values(data);
-        var metrics = probeData.map(item => item.name);
-        this.setState({
-          probeInfo: probeData,
-          metricOptions: metrics,
-        });
-      });
-  }
-
   componentDidMount = () => {
+    this.getProbeInfo();
     this.getChange();
   }
 
-  componentDidUpdate = () => {
+  getProbeInfo = () => {
     fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
       .then(response => response.json())
       .then(data => {
