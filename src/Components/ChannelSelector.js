@@ -1,11 +1,12 @@
 import React from "react";
 import {Grid, Row} from "react-bootstrap";
 import Autosuggest from "react-bootstrap-autosuggest";
+import 'react-bootstrap-autosuggest/src/Autosuggest.scss';
 
 export class ChannelSelector extends React.Component {
   render () {
     return (
-      <Grid className="search-bar" fluid>
+      <Grid className="channel-search-bar" fluid>
         <Row>
           <Autosuggest
             onChange={this.props.onChannelChange}
