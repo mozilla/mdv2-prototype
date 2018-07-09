@@ -6,7 +6,7 @@ import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
 import metricData from "./data/metrics.js";
-import fetch from "node-fetch";
+import fetch from "isomorphic-fetch";
 
 class App extends React.Component {
   constructor(props) {
