@@ -18,6 +18,6 @@ export class MetricSelector extends React.Component {
           </form>
         </Row>
       </Grid>
-    )
+    );
   }
 }

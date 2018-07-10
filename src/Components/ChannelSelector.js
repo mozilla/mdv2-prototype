@@ -15,6 +15,6 @@ export class ChannelSelector extends React.Component {
           />
         </Row>
       </Grid>
-    )
+    );
   }
 }

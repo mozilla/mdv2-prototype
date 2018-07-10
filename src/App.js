@@ -6,61 +6,80 @@ import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
 import metricData from "./data/metrics.js";
+import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 import fetch from "isomorphic-fetch";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentData: [
-        {
-          "start": 0,
-          "end": 1,
-          "count": 1623,
-          "proportion": 0.000011537046015254444
-        },
-        {
-          "start": 1,
-          "end": 2,
-          "count": 41,
-          "proportion": 2.8913714335682874e-7
-        },
-        {
-          "start": 2,
-          "end": 3,
-          "count": 201,
-          "proportion": 0.0000014314658572747914
-        },
-        {
-          "start": 3,
-          "end": 4,
-          "count": 878,
-          "proportion": 0.000006240148348020738
-        },
-        {
-          "start": 4,
-          "end": 5,
-          "count": 2101,
-          "proportion": 0.00001493796241457452
-        },
-      ],
+      currentData: GC_MS_nightly_62,
       change: "",
-      nfifthPercentile: 99,
-      median: 42,
-      lastMedian: 40,
+      nfifthPercentile: "",
+      median: "",
+      lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
       activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
-    }
+    };
+  }
+
+  componentWillMount = () => {
+    let med = this.getPercentile(50).toFixed(2);
+    let nfifth = this.getPercentile(95).toFixed(2);
+    this.setState({
+      median: med,
+      nfifthPercentile: nfifth,
+    });
   }
 
   componentDidMount = () => {
     this.getProbeInfo();
     this.getChange();
   }
+
+  getLastBucketUpper = () => {
+    let buckets = this.state.currentData.map(item => item.start);
+    let lastBucketUpper;
+    if (this.state.currentData.length === 1) {
+      lastBucketUpper = buckets[0] + 1;
+    } else {
+      /*if (this.state.activeMetric.type === "linear" || this.state.activeMetric.type === "flag" || this.state.activeMetric.type ===
+      "boolean" || this.state.activeMetric.type === "enumerated") {
+        lastBucketUpper = buckets[buckets.length - 1] + buckets[buckets.length - 1]
+        - buckets[buckets.length -2];
+      } else {*/
+        lastBucketUpper = buckets[buckets.length - 1] * buckets[buckets.length - 1] / buckets[buckets.length - 2];
+      //}
+    }
+    return lastBucketUpper;
+  };
+
+  getPercentile = (percentile) => {
+    let buckets = this.state.currentData.map(item => item.start);
+    buckets = buckets.concat([this.getLastBucketUpper()]);
+    let values = this.state.currentData.map(item => item.count);
+    //var linearTerm = buckets[buckets.length - 1] - buckets[buckets.length - 2];
+    let exponentialFactor = buckets[buckets.length - 1] / buckets[buckets.length - 2];
+    let percentileCount = values.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * (percentile / 100);
+    let percentileBucketIndex = 0;
+    while (percentileCount >= 0) {
+      percentileCount -= this.state.currentData[percentileBucketIndex].count;
+      percentileBucketIndex++;
+    }
+    percentileBucketIndex--;
+    percentileCount += this.state.currentData[percentileBucketIndex].count;
+    let ratioInBar = percentileCount / this.state.currentData[percentileBucketIndex].count;
+    /*if (this.kind === "linear" || this.kind === "flag" || this.kind ===
+    "boolean" || this.kind === "enumerated") {
+      return buckets[percentileBucketIndex] + linearTerm * ratioInBar;
+    } else {*/
+    return buckets[percentileBucketIndex] * Math.pow(exponentialFactor, ratioInBar);
+    //}
+  };
 
   getProbeInfo = () => {
     fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
@@ -78,25 +97,25 @@ class App extends React.Component {
   onMetricChange = (value) => {
     this.setState({
       activeMetric: value,
-    })
+    });
   }
 
   onVersionChange = (value) => {
     this.setState({
       activeVersion: value,
-    })
+    });
   }
 
   onChannelChange = (value) => {
     this.setState({
       activeChannel: value,
-    })
+    });
   }
 
   getChange = () => {
     var rawChange = this.state.median - this.state.lastMedian;
     var pctChange = (rawChange / this.state.lastMedian) * 100;
-    var roundedChange = pctChange.toFixed(2)
+    var roundedChange = pctChange.toFixed(2);
     this.setState({change: roundedChange});
   }
 

@@ -17,6 +17,6 @@ export class VersionSelector extends React.Component {
           </form>
         </Row>
       </Grid>
-    )
+    );
   }
 }

@@ -27,6 +27,6 @@ export class EvolutionView extends Component {
           />
         </Row>
       </Grid>
-    )
+    );
   }
 }
