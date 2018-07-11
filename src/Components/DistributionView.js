@@ -59,6 +59,9 @@ export class DistributionView extends Component {
             />
           }
         </Row>
+        <Row>
+          <p>Mean: {this.props.mean}</p>
+        </Row>
       </Grid>
     );
   }

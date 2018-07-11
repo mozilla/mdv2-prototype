@@ -17,28 +17,65 @@ class App extends React.Component {
       change: "",
       nfifthPercentile: "",
       median: "",
+      mean: "",
       lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
-      activeVersion: "62",
+      activeVersion: "60",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
     };
   }
 
-  componentWillMount = () => {
+  componentDidMount = () => {
+    this.getProbeInfo();
+    this.getCurrentData();
+    let mean = this.getMean().toFixed(2);
     let med = this.getPercentile(50).toFixed(2);
     let nfifth = this.getPercentile(95).toFixed(2);
     this.setState({
       median: med,
       nfifthPercentile: nfifth,
+      mean: mean,
     });
+    this.getChange();
   }
 
-  componentDidMount = () => {
-    this.getProbeInfo();
-    this.getChange();
+  getProbeInfo = () => {
+    fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
+      .then(response => response.json())
+      .then(data => {
+        var probeData = Object.values(data);
+        var metrics = probeData.map(item => item.name);
+        this.setState({
+          probeInfo: probeData,
+          metricOptions: metrics,
+        });
+      });
+  }
+
+  getCurrentData = () => {
+    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
+      .then(response => response.json())
+      .then(data => this.setState({currentData: data}));
+  }
+
+  getMean = () => {
+    let buckets = this.state.currentData.map(item => item.start);
+    let values = this.state.currentData.map(item => item.count);
+    buckets = buckets.concat([this.getLastBucketUpper()]);
+    let totalHits = 0,
+        bucketHits = 0;
+    let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
+    let exponentialFactor = Math.sqrt(buckets[buckets.length - 1] / buckets[buckets.length - 2]);
+    let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
+    for (let i = 0; i < values.length; i++) {
+      totalHits += values[i];
+      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor; // find the center of the current bucket
+      bucketHits += values[i] * centralX;
+    };
+    return bucketHits / totalHits;
   }
 
   getLastBucketUpper = () => {
@@ -80,19 +117,6 @@ class App extends React.Component {
     return buckets[percentileBucketIndex] * Math.pow(exponentialFactor, ratioInBar);
     //}
   };
-
-  getProbeInfo = () => {
-    fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
-      .then(response => response.json())
-      .then(data => {
-        var probeData = Object.values(data);
-        var metrics = probeData.map(item => item.name);
-        this.setState({
-          probeInfo: probeData,
-          metricOptions: metrics,
-        });
-      });
-  }
 
   onMetricChange = (value) => {
     this.setState({
@@ -150,6 +174,7 @@ class App extends React.Component {
           change = {this.state.change}
           median = {this.state.median}
           nfifthPercentile = {this.state.nfifthPercentile}
+          mean = {this.state.mean}
         />
       </div>
     );

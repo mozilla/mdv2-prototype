@@ -33,6 +33,7 @@ export class ViewSelector extends Component {
             <DistributionView
               activeMetric = {this.props.activeMetric}
               currentData = {this.props.currentData}
+              mean = {this.props.mean}
             />
           </Tab>
           <Tab
