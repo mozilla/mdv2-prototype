@@ -21,7 +21,7 @@ class App extends React.Component {
       lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
-      activeVersion: "60",
+      activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
@@ -57,18 +57,25 @@ class App extends React.Component {
 
   getCurrentData = () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> edits to getCurrentData and math functions.
     fetch("https://mozilla.github.io/mdv2/data/"
         + this.state.activeMetric + "_"
         + this.state.activeChannel + "_"
         + this.state.activeVersion + ".json")
+<<<<<<< HEAD
 =======
     fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
 >>>>>>> add mean function, get current data function.
+=======
+>>>>>>> edits to getCurrentData and math functions.
       .then(response => response.json())
       .then(data => this.setState({currentData: data}));
   }
 
   getMean = () => {
+<<<<<<< HEAD
 <<<<<<< HEAD
     let buckets = this.state.currentData.map(item => item.start)
       .concat([this.getLastBucketUpper()]);
@@ -78,6 +85,11 @@ class App extends React.Component {
     let values = this.state.currentData.map(item => item.count);
     buckets = buckets.concat([this.getLastBucketUpper()]);
 >>>>>>> add mean function, get current data function.
+=======
+    let buckets = this.state.currentData.map(item => item.start)
+      .concat([this.getLastBucketUpper*()]);
+    let values = this.state.currentData.map(item => item.count);
+>>>>>>> edits to getCurrentData and math functions.
     let totalHits = 0,
         bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
@@ -86,10 +98,14 @@ class App extends React.Component {
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
 <<<<<<< HEAD
+<<<<<<< HEAD
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
 =======
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor; // find the center of the current bucket
 >>>>>>> add mean function, get current data function.
+=======
+      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
+>>>>>>> edits to getCurrentData and math functions.
       bucketHits += values[i] * centralX;
     };
     return bucketHits / totalHits;
