@@ -21,7 +21,7 @@ class App extends React.Component {
       lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
-      activeVersion: "60",
+      activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
@@ -56,15 +56,18 @@ class App extends React.Component {
   }
 
   getCurrentData = () => {
-    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
+    fetch("https://mozilla.github.io/mdv2/data/"
+        + this.state.activeMetric + "_"
+        + this.state.activeChannel + "_"
+        + this.state.activeVersion + ".json")
       .then(response => response.json())
       .then(data => this.setState({currentData: data}));
   }
 
   getMean = () => {
-    let buckets = this.state.currentData.map(item => item.start);
+    let buckets = this.state.currentData.map(item => item.start)
+      .concat([this.getLastBucketUpper*()]);
     let values = this.state.currentData.map(item => item.count);
-    buckets = buckets.concat([this.getLastBucketUpper()]);
     let totalHits = 0,
         bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
@@ -72,7 +75,7 @@ class App extends React.Component {
     let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
-      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor; // find the center of the current bucket
+      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
       bucketHits += values[i] * centralX;
     };
     return bucketHits / totalHits;
