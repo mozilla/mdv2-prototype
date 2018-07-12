@@ -87,7 +87,7 @@ class App extends React.Component {
 >>>>>>> add mean function, get current data function.
 =======
     let buckets = this.state.currentData.map(item => item.start)
-      .concat([this.getLastBucketUpper*()]);
+      .concat([this.getLastBucketUpper()]);
     let values = this.state.currentData.map(item => item.count);
 >>>>>>> edits to getCurrentData and math functions.
     let totalHits = 0,
