@@ -66,7 +66,7 @@ class App extends React.Component {
 
   getMean = () => {
     let buckets = this.state.currentData.map(item => item.start)
-      .concat([this.getLastBucketUpper*()]);
+      .concat([this.getLastBucketUpper()]);
     let values = this.state.currentData.map(item => item.count);
     let totalHits = 0,
         bucketHits = 0;
