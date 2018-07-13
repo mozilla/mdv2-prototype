@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import {Navigation} from "./Components/Navigation.js";
-import {ViewSelector} from "./Components/ViewSelector.js";
-import {MetricSelector} from "./Components/MetricSelector.js";
-import {VersionSelector} from "./Components/VersionSelector.js";
-import {ChannelSelector} from "./Components/ChannelSelector.js";
-import metricData from "./data/metrics.js";
-import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
+import {Navigation} from "./Navigation.js";
+import {ViewSelector} from "./ViewSelector.js";
+import {MetricSelector} from "./MetricSelector.js";
+import {VersionSelector} from "./VersionSelector.js";
+import {ChannelSelector} from "./ChannelSelector.js";
+import metricData from "./../data/metrics.js";
+import GC_MS_nightly_62 from "./../data/GC_MS_nightly_62.json";
 import fetch from "isomorphic-fetch";
 
 class App extends React.Component {
