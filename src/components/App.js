@@ -3,7 +3,7 @@ import "./App.css";
 import {Navigation} from "./Navigation.js";
 import {ViewSelector} from "./ViewSelector.js";
 import {MetricSelector} from "./MetricSelector.js";
-import {VersionSelector} from "./VersionSelector.js";
+import {VersionSelector} from "../containers/VersionSelector.js";
 import {ChannelSelector} from "./ChannelSelector.js";
 import metricData from "./../data/metrics.js";
 import GC_MS_nightly_62 from "./../data/GC_MS_nightly_62.json";
