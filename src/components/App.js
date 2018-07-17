@@ -56,25 +56,32 @@ class App extends React.Component {
   }
 
   getCurrentData = () => {
+<<<<<<< HEAD:src/components/App.js
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> edits to getCurrentData and math functions.
+=======
+>>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
     fetch("https://mozilla.github.io/mdv2/data/"
         + this.state.activeMetric + "_"
         + this.state.activeChannel + "_"
         + this.state.activeVersion + ".json")
+<<<<<<< HEAD:src/components/App.js
 <<<<<<< HEAD
 =======
     fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
 >>>>>>> add mean function, get current data function.
 =======
 >>>>>>> edits to getCurrentData and math functions.
+=======
+>>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
       .then(response => response.json())
       .then(data => this.setState({currentData: data}));
   }
 
   getMean = () => {
+<<<<<<< HEAD:src/components/App.js
 <<<<<<< HEAD
 <<<<<<< HEAD
     let buckets = this.state.currentData.map(item => item.start)
@@ -90,6 +97,11 @@ class App extends React.Component {
       .concat([this.getLastBucketUpper()]);
     let values = this.state.currentData.map(item => item.count);
 >>>>>>> edits to getCurrentData and math functions.
+=======
+    let buckets = this.state.currentData.map(item => item.start)
+      .concat([this.getLastBucketUpper()]);
+    let values = this.state.currentData.map(item => item.count);
+>>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
     let totalHits = 0,
         bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
@@ -97,6 +109,7 @@ class App extends React.Component {
     let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
+<<<<<<< HEAD:src/components/App.js
 <<<<<<< HEAD
 <<<<<<< HEAD
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
@@ -106,6 +119,9 @@ class App extends React.Component {
 =======
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
 >>>>>>> edits to getCurrentData and math functions.
+=======
+      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
+>>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
       bucketHits += values[i] * centralX;
     };
     return bucketHits / totalHits;
