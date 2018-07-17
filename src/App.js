@@ -21,7 +21,7 @@ class App extends React.Component {
       lastMedian: 315,
       activeMetric: "GC_MS",
       metricOptions: metricData,
-      activeVersion: "62",
+      activeVersion: "60",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
       channelOptions: ["nightly", "beta", "dev edition", "release"],
@@ -56,18 +56,28 @@ class App extends React.Component {
   }
 
   getCurrentData = () => {
+<<<<<<< HEAD
     fetch("https://mozilla.github.io/mdv2/data/"
         + this.state.activeMetric + "_"
         + this.state.activeChannel + "_"
         + this.state.activeVersion + ".json")
+=======
+    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
+>>>>>>> add mean function, get current data function.
       .then(response => response.json())
       .then(data => this.setState({currentData: data}));
   }
 
   getMean = () => {
+<<<<<<< HEAD
     let buckets = this.state.currentData.map(item => item.start)
       .concat([this.getLastBucketUpper()]);
     let values = this.state.currentData.map(item => item.count);
+=======
+    let buckets = this.state.currentData.map(item => item.start);
+    let values = this.state.currentData.map(item => item.count);
+    buckets = buckets.concat([this.getLastBucketUpper()]);
+>>>>>>> add mean function, get current data function.
     let totalHits = 0,
         bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
@@ -75,7 +85,11 @@ class App extends React.Component {
     let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
+<<<<<<< HEAD
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
+=======
+      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor; // find the center of the current bucket
+>>>>>>> add mean function, get current data function.
       bucketHits += values[i] * centralX;
     };
     return bucketHits / totalHits;
