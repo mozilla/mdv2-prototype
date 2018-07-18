@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import {Navigation} from "./components/Navigation.js";
-import {ViewSelector} from "./components/ViewSelector.js";
-import {MetricSelector} from "./components/MetricSelector.js";
-import {VersionSelector} from "./components/VersionSelector.js";
-import {ChannelSelector} from "./components/ChannelSelector.js";
+import {Navigation} from "./Components/Navigation.js";
+import {ViewSelector} from "./Components/ViewSelector.js";
+import {MetricSelector} from "./Components/MetricSelector.js";
+import {VersionSelector} from "./Components/VersionSelector.js";
+import {ChannelSelector} from "./Components/ChannelSelector.js";
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 import fetch from "isomorphic-fetch";
 

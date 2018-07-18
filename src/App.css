@@ -1,3 +1,16 @@
+.App {
+  font-family: Zilla slab, serif;
+}
+
 .view, #selector {
   margin: 10px;
+}
+
+.version-selector {
+  display: inline-block;
+}
+
+.channel-selector {
+  margin: 10px 0 10px 10px;
+  display: inline-block;
 }
