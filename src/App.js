@@ -5,7 +5,6 @@ import {ViewSelector} from "./Components/ViewSelector.js";
 import {MetricSelector} from "./Components/MetricSelector.js";
 import {VersionSelector} from "./Components/VersionSelector.js";
 import {ChannelSelector} from "./Components/ChannelSelector.js";
-import metricData from "./data/metrics.js";
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 import fetch from "isomorphic-fetch";
 
@@ -20,7 +19,7 @@ class App extends React.Component {
       mean: "",
       lastMedian: 315,
       activeMetric: "GC_MS",
-      metricOptions: metricData,
+      metricOptions: ["GC_MS", "HTTP_SCHEME_UPGRADE_TYPE", "scalars_devtools_onboarding_is_devtools_user"],
       activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
@@ -29,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getProbeInfo();
+    //this.getProbeInfo();
     this.getCurrentData();
     let mean = this.getMean().toFixed(2);
     let med = this.getPercentile(50).toFixed(2);
@@ -42,6 +41,7 @@ class App extends React.Component {
     this.getChange();
   }
 
+  /* Overriding this API call during testing so that we can limit the metric options.
   getProbeInfo = () => {
     fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
       .then(response => response.json())
@@ -54,6 +54,7 @@ class App extends React.Component {
         });
       });
   }
+  */
 
   getCurrentData = () => {
     fetch("https://mozilla.github.io/mdv2/data/"
@@ -121,21 +122,21 @@ class App extends React.Component {
     //}
   };
 
-  onMetricChange = (value) => {
+  onMetricChange = (eventKey) => {
     this.setState({
-      activeMetric: value,
+      activeMetric: eventKey,
     });
   }
 
-  onVersionChange = (value) => {
+  onVersionChange = (eventKey) => {
     this.setState({
-      activeVersion: value,
+      activeVersion: eventKey,
     });
   }
 
-  onChannelChange = (value) => {
+  onChannelChange = (eventKey) => {
     this.setState({
-      activeChannel: value,
+      activeChannel: eventKey,
     });
   }
 
@@ -155,7 +156,6 @@ class App extends React.Component {
           onMetricChange = {this.onMetricChange}
           metricOptions = {this.state.metricOptions}
         />
-        <hr></hr>
         <ChannelSelector
           activeChannel = {this.state.activeChannel}
           onChannelChange = {this.onChannelChange}

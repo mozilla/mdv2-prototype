@@ -4,7 +4,7 @@ import {Grid, Row, Col} from "react-bootstrap";
 export class ComparisonView extends Component {
   render() {
     return (
-      <Grid  className="compare-view" fluid>
+      <Grid  className="comparison view" fluid>
         <Row>
           <Col>
             <i className="fas fa-info-circle"></i> The comparison view displays the distribution of a measure across two versions.
