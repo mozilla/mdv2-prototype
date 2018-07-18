@@ -1,22 +1,25 @@
 import React from "react";
-import {Grid, Row} from "react-bootstrap";
-import Autosuggest from "react-bootstrap-autosuggest";
-import "react-bootstrap-autosuggest/src/Autosuggest.scss";
+import {DropdownButton, MenuItem} from "react-bootstrap";
 
 export class VersionSelector extends React.Component {
   render () {
     return (
-      <Grid className="version-search-bar" fluid>
-        <Row>
-          <form>
-            <Autosuggest
-              onChange={this.props.onVersionChange}
-              datalist={this.props.versionOptions}
-              placeholder={this.props.activeVersion}
-            />
-          </form>
-        </Row>
-      </Grid>
+      <DropdownButton
+        id="selector"
+        title={this.props.activeVersion}
+      >
+        {this.props.versionOptions.map( (option, index) => {
+          return (
+            <MenuItem
+              key={index}
+              eventKey={option}
+              onSelect={this.props.onVersionChange}
+            >
+              {option}
+            </MenuItem>);
+          })
+        }
+      </DropdownButton>
     );
   }
 }

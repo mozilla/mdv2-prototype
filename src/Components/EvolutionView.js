@@ -6,7 +6,7 @@ import 'metrics-graphics/dist/metricsgraphics.css';
 export class EvolutionView extends Component {
   render() {
     return (
-      <Grid  className="evolve-view" fluid>
+      <Grid  className="evolution view" fluid>
         <Row>
           <Col>
             <i className="fas fa-info-circle"></i> The evolution view shows the evolution of a given aggregate over time.

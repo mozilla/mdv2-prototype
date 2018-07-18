@@ -3,9 +3,8 @@ import "./App.css";
 import {Navigation} from "./Navigation.js";
 import {ViewSelector} from "./ViewSelector.js";
 import {MetricSelector} from "./MetricSelector.js";
-import {VersionSelector} from "../containers/VersionSelector.js";
+import {VersionSelector} from "./VersionSelector.js";
 import {ChannelSelector} from "./ChannelSelector.js";
-import metricData from "./../data/metrics.js";
 import GC_MS_nightly_62 from "./../data/GC_MS_nightly_62.json";
 import fetch from "isomorphic-fetch";
 
@@ -20,7 +19,7 @@ class App extends React.Component {
       mean: "",
       lastMedian: 315,
       activeMetric: "GC_MS",
-      metricOptions: metricData,
+      metricOptions: ["GC_MS", "HTTP_SCHEME_UPGRADE_TYPE", "scalars_devtools_onboarding_is_devtools_user"],
       activeVersion: "62",
       versionOptions: ["60", "61", "62"],
       activeChannel: "nightly",
@@ -29,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getProbeInfo();
+    //this.getProbeInfo();
     this.getCurrentData();
     let mean = this.getMean().toFixed(2);
     let med = this.getPercentile(50).toFixed(2);
@@ -42,6 +41,7 @@ class App extends React.Component {
     this.getChange();
   }
 
+  /* Overriding this API call during testing so that we can limit the metric options.
   getProbeInfo = () => {
     fetch("https://probeinfo.telemetry.mozilla.org/firefox/all/main/all_probes")
       .then(response => response.json())
@@ -54,54 +54,21 @@ class App extends React.Component {
         });
       });
   }
+  */
 
   getCurrentData = () => {
-<<<<<<< HEAD:src/components/App.js
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> edits to getCurrentData and math functions.
-=======
->>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
     fetch("https://mozilla.github.io/mdv2/data/"
         + this.state.activeMetric + "_"
         + this.state.activeChannel + "_"
         + this.state.activeVersion + ".json")
-<<<<<<< HEAD:src/components/App.js
-<<<<<<< HEAD
-=======
-    fetch("https://mozilla.github.io/mdv2/data/" + this.state.activeMetric + "_" + this.state.activeChannel + "_" + this.state.activeVersion + ".json")
->>>>>>> add mean function, get current data function.
-=======
->>>>>>> edits to getCurrentData and math functions.
-=======
->>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
       .then(response => response.json())
       .then(data => this.setState({currentData: data}));
   }
 
   getMean = () => {
-<<<<<<< HEAD:src/components/App.js
-<<<<<<< HEAD
-<<<<<<< HEAD
     let buckets = this.state.currentData.map(item => item.start)
       .concat([this.getLastBucketUpper()]);
     let values = this.state.currentData.map(item => item.count);
-=======
-    let buckets = this.state.currentData.map(item => item.start);
-    let values = this.state.currentData.map(item => item.count);
-    buckets = buckets.concat([this.getLastBucketUpper()]);
->>>>>>> add mean function, get current data function.
-=======
-    let buckets = this.state.currentData.map(item => item.start)
-      .concat([this.getLastBucketUpper()]);
-    let values = this.state.currentData.map(item => item.count);
->>>>>>> edits to getCurrentData and math functions.
-=======
-    let buckets = this.state.currentData.map(item => item.start)
-      .concat([this.getLastBucketUpper()]);
-    let values = this.state.currentData.map(item => item.count);
->>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
     let totalHits = 0,
         bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
@@ -109,19 +76,7 @@ class App extends React.Component {
     let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
-<<<<<<< HEAD:src/components/App.js
-<<<<<<< HEAD
-<<<<<<< HEAD
       let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
-=======
-      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor; // find the center of the current bucket
->>>>>>> add mean function, get current data function.
-=======
-      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
->>>>>>> edits to getCurrentData and math functions.
-=======
-      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
->>>>>>> 753625a7230dd65dd571758ef7190b1e75c39ee7:src/components/App.js
       bucketHits += values[i] * centralX;
     };
     return bucketHits / totalHits;
@@ -167,21 +122,21 @@ class App extends React.Component {
     //}
   };
 
-  onMetricChange = (value) => {
+  onMetricChange = (eventKey) => {
     this.setState({
-      activeMetric: value,
+      activeMetric: eventKey,
     });
   }
 
-  onVersionChange = (value) => {
+  onVersionChange = (eventKey) => {
     this.setState({
-      activeVersion: value,
+      activeVersion: eventKey,
     });
   }
 
-  onChannelChange = (value) => {
+  onChannelChange = (eventKey) => {
     this.setState({
-      activeChannel: value,
+      activeChannel: eventKey,
     });
   }
 
@@ -201,7 +156,6 @@ class App extends React.Component {
           onMetricChange = {this.onMetricChange}
           metricOptions = {this.state.metricOptions}
         />
-        <hr></hr>
         <ChannelSelector
           activeChannel = {this.state.activeChannel}
           onChannelChange = {this.onChannelChange}

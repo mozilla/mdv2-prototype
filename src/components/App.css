@@ -1,1 +1,3 @@
-
+.view, #selector {
+  margin: 10px;
+}

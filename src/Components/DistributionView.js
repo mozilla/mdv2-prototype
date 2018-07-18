@@ -18,7 +18,7 @@ export class DistributionView extends Component {
 
   render() {
     return (
-      <Grid  className="dist-view" fluid>
+      <Grid  className="distribution view" fluid>
         <Row>
           <Col>
             <i className="fas fa-info-circle"></i> The distribution view displays the distribution of user outcomes as a histogram.
@@ -29,6 +29,7 @@ export class DistributionView extends Component {
         <Row>
           <ToggleButtonGroup
             name="mode-options"
+            id="selector"
             type="radio"
             value={this.state.mode}
             onChange={this.handleChange}

@@ -16,8 +16,8 @@ export class TableMode extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.currentData.map( data =>
-              <tr>
+            {this.props.currentData.map( (data, index) =>
+              <tr key={index}>
                 <td>{data.start}</td>
                 <td>{data.end}</td>
                 <td>{data.count}</td>

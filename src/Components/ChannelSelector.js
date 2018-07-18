@@ -1,20 +1,25 @@
 import React from "react";
-import {Grid, Row} from "react-bootstrap";
-import Autosuggest from "react-bootstrap-autosuggest";
-import 'react-bootstrap-autosuggest/src/Autosuggest.scss';
+import {DropdownButton, MenuItem} from "react-bootstrap";
 
 export class ChannelSelector extends React.Component {
   render () {
     return (
-      <Grid className="channel-search-bar" fluid>
-        <Row>
-          <Autosuggest
-            onChange={this.props.onChannelChange}
-            datalist={this.props.channelOptions}
-            placeholder={this.props.activeChannel}
-          />
-        </Row>
-      </Grid>
+      <DropdownButton
+        id="selector"
+        title={this.props.activeChannel}
+      >
+        {this.props.channelOptions.map( (option, index) => {
+          return (
+            <MenuItem
+              key={index}
+              eventKey={option}
+              onSelect={this.props.onChannelChange}
+            >
+              {option}
+            </MenuItem>);
+          })
+        }
+      </DropdownButton>
     );
   }
 }

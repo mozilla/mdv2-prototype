@@ -8,7 +8,7 @@ import {EvolutionView} from "./EvolutionView.js";
 export class ViewSelector extends Component {
   render() {
     return (
-      <div>
+      <div className="view-selector">
         <Tabs
           defaultActiveKey={"summary"}
           id="view-tabs"
