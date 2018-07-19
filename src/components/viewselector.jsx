@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Tabs, Tab} from "react-bootstrap";
-import {SummaryView} from "./SummaryView.js";
-import {DistributionView} from "./DistributionView.js";
-import {ComparisonView} from "./ComparisonView.js";
-import {EvolutionView} from "./EvolutionView.js";
+import {SummaryView} from "./summaryview.jsx";
+import {DistributionView} from "./distributionview.jsx";
+import {ComparisonView} from "./comparisonview.jsx";
+import {EvolutionView} from "./evolutionview.jsx";
 
 export class ViewSelector extends Component {
   render() {

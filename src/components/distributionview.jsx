@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, ToggleButtonGroup, ToggleButton} from "react-bootstrap";
-import {TableMode} from "./TableMode.js";
+import {TableMode} from "./tablemode.jsx";
 import MetricsGraphics from "react-metrics-graphics";
 import 'metrics-graphics/dist/metricsgraphics.css';
 
