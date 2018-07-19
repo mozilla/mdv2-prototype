@@ -8,6 +8,7 @@ export class MetricSelector extends React.Component {
       <form
         id="selector"
       >
+        <h3>Metric:</h3>
         <Autosuggest
           onChange={this.props.onMetricChange}
           datalist={this.props.metricOptions}
