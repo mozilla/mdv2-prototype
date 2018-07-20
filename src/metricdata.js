@@ -75,16 +75,16 @@ export class MetricData {
   }
 
   loadDataFor(metric, channel, version) {
-    fetch("https://mozilla.github.io/mdv2/data/" +
+    return fetch("https://mozilla.github.io/mdv2/data/" +
           metric + "_" +
           channel + "_" +
           version + ".json")
       .then(response => response.json())
       .then(data => {
-        this.active.metric = metric;
-        this.active.channel = channel;
-        this.active.version = version;
-        this.active.data = data;
+        this._active.metric = metric;
+        this._active.channel = channel;
+        this._active.version = version;
+        this._active.data = data;
         this.updateCachedData();
       });
   }
