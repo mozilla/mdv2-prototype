@@ -18,8 +18,11 @@ class App extends React.Component {
     super(props);
 
     this.dataStore = new MetricData();
+    let active = this.dataStore.active;
     this.state = {
-      active: this.dataStore.active,
+      activeMetric: active.metric,
+      activeChannel: active.channel,
+      activeVersion: active.version,
     };
   }
 
@@ -65,17 +68,17 @@ class App extends React.Component {
       <div className="App">
         <Navigation />
         <MetricSelector
-          activeMetric = {this.state.active.metric}
+          activeMetric = {this.state.activeMetric}
           onMetricChange = {this.onMetricChange}
-          metricOptions = {this.state.metricOptions}
+          metricOptions = {this.dataStore.metricOptions}
         />
         <ChannelSelector
-          activeChannel = {this.state.active.channel}
+          activeChannel = {this.state.activeChannel}
           onChannelChange = {this.onChannelChange}
           channelOptions = {this.dataStore.channelOptions}
         />
         <VersionSelector
-          activeVersion = {this.state.active.version}
+          activeVersion = {this.state.activeVersion}
           onVersionChange = {this.onVersionChange}
           versionOptions = {this.dataStore.versionOptions}
         />
