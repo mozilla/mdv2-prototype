@@ -41,9 +41,9 @@ export class DistributionView extends Component {
         <Row>
           {this.state.mode === "graph" &&
             <MetricsGraphics
-              title={this.props.activeMetric}
-              data={this.props.currentData}
-              x_label={this.props.activeMetric}
+              title={this.props.dataStore.active.metric}
+              data={this.props.dataStore.active.data}
+              x_label={this.props.dataStore.active.metric}
               y_label="Proportion of Users"
               chart_type="histogram"
               width={600}
@@ -55,8 +55,8 @@ export class DistributionView extends Component {
           }
           {this.state.mode === "table" &&
             <TableMode
-              activeMetric = {this.props.activeMetric}
-              currentData = {this.props.currentData}
+              activeMetric = {this.props.dataStore.active.metric}
+              currentData = {this.props.dataStore.active.data}
             />
           }
         </Row>

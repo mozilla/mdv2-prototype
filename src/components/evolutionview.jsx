@@ -16,9 +16,9 @@ export class EvolutionView extends Component {
         </Row>
         <Row>
           <MetricsGraphics
-            title={this.props.activeMetric}
-            data={this.props.currentData}
-            x_label={this.props.activeMetric}
+            title={this.props.dataStore.active.metric}
+            data={this.props.dataStore.active.data}
+            x_label={this.props.dataStore.active.metric}
             y_label="Proportion of Users"
             y_accessor="proportion"
             x_accessor="start"
