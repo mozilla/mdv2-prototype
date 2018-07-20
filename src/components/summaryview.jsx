@@ -11,24 +11,24 @@ export class SummaryView extends Component {
           </p>
         </Row>
         <Row>
-          <h3>Median: {this.props.median}</h3>
-          <p>The median value for {this.props.activeMetric} {this.props.activeChannel} {this.props.activeVersion} is {this.props.median}.</p>
-          <h3>95th Percentile: {this.props.nfifthPercentile}</h3>
-          <p>The 95th percentile for {this.props.activeMetric} {this.props.activeChannel} {this.props.activeVersion} is {this.props.nfifthPercentile}.</p>
+          <h3>Median: {this.props.dataStore.median.toFixed(2)}</h3>
+          <p>The median value for {this.props.dataStore.active.metric} {this.props.dataStore.active.channel} {this.props.activeVersion} is {this.props.dataStore.median}.</p>
+          <h3>95th Percentile: {this.props.dataStore.nfifthPercentile.toFixed(2)}</h3>
+          <p>The 95th percentile for {this.props.dataStore.active.metric} {this.props.dataStore.active.channel} {this.props.dataStore.active.version} is {this.props.dataStore.nfifthPercentile.toFixed(2)}.</p>
           <h3>
-            {this.props.change > 0 &&
+            {this.props.dataStore.change > 0 &&
               <i className="fas fa-arrow-up"></i>
             }
-            {this.props.change < 0 &&
+            {this.props.dataStore.change < 0 &&
               <i className="fas fa-arrow-down"></i>
-            } Change: {this.props.change}%</h3>
-          <p>Since {this.props.activeChannel} {this.props.activeVersion - 1}, the median value for {this.props.activeMetric} has
-            {this.props.change > 0 &&
+            } Change: {this.props.dataStore.change.toFixed(2)}%</h3>
+          <p>Since {this.props.dataStore.active.channel} {this.props.dataStore.active.version - 1}, the median value for {this.props.dataStore.active.metric} has
+            {this.props.dataStore.change > 0 &&
               " increased"
             }
-            {this.props.change < 0 &&
+            {this.props.dataStore.change < 0 &&
               " decreased"
-            } by {this.props.change}%.</p>
+            } by {this.props.dataStore.change}%.</p>
         </Row>
       </Grid>
     );

@@ -1,44 +1,30 @@
 import React from "react";
+import fetch from "isomorphic-fetch";
+
 import "./app.css";
+
 import {Navigation} from "./components/navigation.jsx";
 import {ViewSelector} from "./components/viewselector.jsx";
 import {MetricSelector} from "./components/metricselector.jsx";
 import {VersionSelector} from "./components/versionselector.jsx";
 import {ChannelSelector} from "./components/channelselector.jsx";
+
+import {MetricData} from "./metricdata.js";
+
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
-import fetch from "isomorphic-fetch";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.dataStore = new MetricData();
     this.state = {
-      currentData: GC_MS_nightly_62,
-      change: "",
-      nfifthPercentile: "",
-      median: "",
-      mean: "",
-      lastMedian: 315,
-      activeMetric: "GC_MS",
-      metricOptions: ["GC_MS", "HTTP_SCHEME_UPGRADE_TYPE", "scalars_devtools_onboarding_is_devtools_user"],
-      activeVersion: "62",
-      versionOptions: ["60", "61", "62"],
-      activeChannel: "nightly",
-      channelOptions: ["nightly", "beta", "dev edition", "release"],
+      active: this.dataStore.active,
     };
   }
 
   componentDidMount = () => {
     //this.getProbeInfo();
-    this.getCurrentData();
-    let mean = this.getMean().toFixed(2);
-    let med = this.getPercentile(50).toFixed(2);
-    let nfifth = this.getPercentile(95).toFixed(2);
-    this.setState({
-      median: med,
-      nfifthPercentile: nfifth,
-      mean: mean,
-    });
-    this.getChange();
   }
 
   /* Overriding this API call during testing so that we can limit the metric options.
@@ -55,72 +41,6 @@ class App extends React.Component {
       });
   }
   */
-
-  getCurrentData = () => {
-    fetch("https://mozilla.github.io/mdv2/data/"
-        + this.state.activeMetric + "_"
-        + this.state.activeChannel + "_"
-        + this.state.activeVersion + ".json")
-      .then(response => response.json())
-      .then(data => this.setState({currentData: data}));
-  }
-
-  getMean = () => {
-    let buckets = this.state.currentData.map(item => item.start)
-      .concat([this.getLastBucketUpper()]);
-    let values = this.state.currentData.map(item => item.count);
-    let totalHits = 0,
-        bucketHits = 0;
-    let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
-    let exponentialFactor = Math.sqrt(buckets[buckets.length - 1] / buckets[buckets.length - 2]);
-    let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
-    for (let i = 0; i < values.length; i++) {
-      totalHits += values[i];
-      let centralX = useLinearBuckets ? buckets[i] + linearTerm : buckets[i] * exponentialFactor;
-      bucketHits += values[i] * centralX;
-    };
-    return bucketHits / totalHits;
-  }
-
-  getLastBucketUpper = () => {
-    let buckets = this.state.currentData.map(item => item.start);
-    let lastBucketUpper;
-    if (this.state.currentData.length === 1) {
-      lastBucketUpper = buckets[0] + 1;
-    } else {
-      /*if (this.state.activeMetric.type === "linear" || this.state.activeMetric.type === "flag" || this.state.activeMetric.type ===
-      "boolean" || this.state.activeMetric.type === "enumerated") {
-        lastBucketUpper = buckets[buckets.length - 1] + buckets[buckets.length - 1]
-        - buckets[buckets.length -2];
-      } else {*/
-        lastBucketUpper = buckets[buckets.length - 1] * buckets[buckets.length - 1] / buckets[buckets.length - 2];
-      //}
-    }
-    return lastBucketUpper;
-  };
-
-  getPercentile = (percentile) => {
-    let buckets = this.state.currentData.map(item => item.start);
-    buckets = buckets.concat([this.getLastBucketUpper()]);
-    let values = this.state.currentData.map(item => item.count);
-    //var linearTerm = buckets[buckets.length - 1] - buckets[buckets.length - 2];
-    let exponentialFactor = buckets[buckets.length - 1] / buckets[buckets.length - 2];
-    let percentileCount = values.reduce((accumulator, currentValue) => accumulator + currentValue, 0) * (percentile / 100);
-    let percentileBucketIndex = 0;
-    while (percentileCount >= 0) {
-      percentileCount -= this.state.currentData[percentileBucketIndex].count;
-      percentileBucketIndex++;
-    }
-    percentileBucketIndex--;
-    percentileCount += this.state.currentData[percentileBucketIndex].count;
-    let ratioInBar = percentileCount / this.state.currentData[percentileBucketIndex].count;
-    /*if (this.kind === "linear" || this.kind === "flag" || this.kind ===
-    "boolean" || this.kind === "enumerated") {
-      return buckets[percentileBucketIndex] + linearTerm * ratioInBar;
-    } else {*/
-    return buckets[percentileBucketIndex] * Math.pow(exponentialFactor, ratioInBar);
-    //}
-  };
 
   onMetricChange = (eventKey) => {
     this.setState({
@@ -140,44 +60,29 @@ class App extends React.Component {
     });
   }
 
-  getChange = () => {
-    var rawChange = this.state.median - this.state.lastMedian;
-    var pctChange = (rawChange / this.state.lastMedian) * 100;
-    var roundedChange = pctChange.toFixed(2);
-    this.setState({change: roundedChange});
-  }
-
   render() {
     return (
       <div className="App">
         <Navigation />
         <MetricSelector
-          activeMetric = {this.state.activeMetric}
+          activeMetric = {this.state.active.metric}
           onMetricChange = {this.onMetricChange}
           metricOptions = {this.state.metricOptions}
         />
         <ChannelSelector
-          activeChannel = {this.state.activeChannel}
+          activeChannel = {this.state.active.channel}
           onChannelChange = {this.onChannelChange}
-          channelOptions = {this.state.channelOptions}
+          channelOptions = {this.dataStore.channelOptions}
         />
         <VersionSelector
-          activeVersion = {this.state.activeVersion}
+          activeVersion = {this.state.active.version}
           onVersionChange = {this.onVersionChange}
-          versionOptions = {this.state.versionOptions}
+          versionOptions = {this.dataStore.versionOptions}
         />
         <br />
         <ViewSelector
-          currentData = {this.state.currentData}
-          activeMetric = {this.state.activeMetric}
-          activeChannel = {this.state.activeChannel}
-          activeVersion = {this.state.activeVersion}
+          dataStore = {this.dataStore}
           onMetricChange = {this.onMetricChange}
-          metricOptions = {this.state.metricOptions}
-          change = {this.state.change}
-          median = {this.state.median}
-          nfifthPercentile = {this.state.nfifthPercentile}
-          mean = {this.state.mean}
         />
       </div>
     );
