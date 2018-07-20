@@ -23,6 +23,7 @@ class App extends React.Component {
       activeMetric: active.metric,
       activeChannel: active.channel,
       activeVersion: active.version,
+      activeData: active.data,
     };
   }
 
@@ -63,6 +64,15 @@ class App extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.activeMetric !== this.state.activeMetric ||
+        prevState.activeChannel !== this.state.activeChannel ||
+        prevState.activeVersion !== this.state.activeVersion) {
+      this.dataStore.loadDataFor(this.state.activeMetric, this.state.activeChannel, this.state.activeVersion)
+          .then(() => this.setState({activeData: this.dataStore.active.data}));
+    }
+  }
+
   render() {
     return (
       <div className="App">
@@ -85,6 +95,7 @@ class App extends React.Component {
         <br />
         <ViewSelector
           dataStore = {this.dataStore}
+          activeData = {this.state.activeData}
           onMetricChange = {this.onMetricChange}
         />
       </div>
