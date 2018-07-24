@@ -1,5 +1,4 @@
 import React from "react";
-import fetch from "isomorphic-fetch";
 
 import "./app.css";
 
@@ -10,8 +9,6 @@ import {VersionSelector} from "./components/versionselector.jsx";
 import {ChannelSelector} from "./components/channelselector.jsx";
 
 import {MetricData} from "./metricdata.js";
-
-import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 
 class App extends React.Component {
   constructor(props) {
