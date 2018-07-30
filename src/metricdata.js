@@ -74,19 +74,15 @@ export class MetricData {
     this.cached.change = this.getChange().toFixed(2);
   }
 
-  loadDataFor(metric, channel, version) {
-    return fetch("https://mozilla.github.io/mdv2/data/" +
-          metric + "_" +
-          channel + "_" +
-          version + ".json")
-      .then(response => response.json())
-      .then(data => {
-        this._active.metric = metric;
-        this._active.channel = channel;
-        this._active.version = version;
-        this._active.data = data;
-        this.updateCachedData();
-      });
+  async loadDataFor(metric, channel, version) {
+    const response = await fetch(`https://mozilla.github.io/mdv2/data/${metric}_${channel}_${version}.json`);
+    const data = await response.json();
+
+    this._active.metric = metric;
+    this._active.channel = channel;
+    this._active.version = version;
+    this._active.data = data;
+    this.updateCachedData();
   }
 
   getMean() {
@@ -98,7 +94,7 @@ export class MetricData {
     let bucketHits = 0;
     let linearTerm = (buckets[buckets.length - 1] - buckets[buckets.length -2]) / 2;
     let exponentialFactor = Math.sqrt(buckets[buckets.length - 1] / buckets[buckets.length - 2]);
-    let useLinearBuckets = this.kind === "linear" || this.kind === "flag" || this.kind === "boolean" || this.kind === "enumerated";
+    let useLinearBuckets = ["linear", "flag", "boolean", "enumerated"].includes(this.kind);
 
     for (let i = 0; i < values.length; i++) {
       totalHits += values[i];
@@ -141,8 +137,7 @@ export class MetricData {
     percentileBucketIndex--;
     percentileCount += currentData[percentileBucketIndex].count;
     let ratioInBar = percentileCount / currentData[percentileBucketIndex].count;
-    /*if (this.kind === "linear" || this.kind === "flag" || this.kind ===
-    "boolean" || this.kind === "enumerated") {
+    /*if (["linear", "flag", "boolean", "enumerated"].includes(this.kind)) {
       return buckets[percentileBucketIndex] + linearTerm * ratioInBar;
     } else {*/
     return buckets[percentileBucketIndex] * Math.pow(exponentialFactor, ratioInBar);
