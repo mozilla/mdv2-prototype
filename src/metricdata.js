@@ -78,10 +78,14 @@ export class MetricData {
     const response = await fetch(`https://mozilla.github.io/mdv2/data/${metric}_${channel}_${version}.json`);
     const data = await response.json();
 
-    this._active.metric = metric;
-    this._active.channel = channel;
-    this._active.version = version;
-    this._active.data = data;
+    this._active = {
+      ...this._active,
+      metric,
+      channel,
+      version,
+      data,
+    };
+
     this.updateCachedData();
   }
 
