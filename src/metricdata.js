@@ -92,7 +92,10 @@ export class MetricData {
   getMean() {
     let currentData = this._active.data;
     let buckets = currentData.map(item => item.start)
-                             .concat([this.getLastBucketUpper()]);
+    let buckets = [
+      ...currentData.map(item => item.start),
+      this.getLastBucketUpper(),
+    ];
     let values = currentData.map(item => item.count);
     let totalHits = 0;
     let bucketHits = 0;
@@ -127,8 +130,10 @@ export class MetricData {
 
   getPercentile(percentile) {
     let currentData = this._active.data;
-    let buckets = currentData.map(item => item.start);
-    buckets = buckets.concat([this.getLastBucketUpper()]);
+    let buckets = [
+      ...currentData.map(item => item.start),
+      this.getLastBucketUpper(),
+    ];
     let values = currentData.map(item => item.count);
     //let linearTerm = buckets[buckets.length - 1] - buckets[buckets.length - 2];
     let exponentialFactor = buckets[buckets.length - 1] / buckets[buckets.length - 2];
