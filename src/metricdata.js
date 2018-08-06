@@ -91,7 +91,6 @@ export class MetricData {
 
   getMean() {
     let currentData = this._active.data;
-    let buckets = currentData.map(item => item.start)
     let buckets = [
       ...currentData.map(item => item.start),
       this.getLastBucketUpper(),
