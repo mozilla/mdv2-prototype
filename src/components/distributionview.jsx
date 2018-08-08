@@ -17,6 +17,10 @@ export class DistributionView extends Component {
   }
 
   render() {
+    let mean = this.props.dataStore.mean.toFixed(2);
+    let metric = this.props.dataStore.active.metric;
+    let data = this.props.dataStore.active.data;
+
     return (
       <Grid  className="distribution view" fluid>
         <Row>
@@ -41,9 +45,9 @@ export class DistributionView extends Component {
         <Row>
           {this.state.mode === "graph" &&
             <MetricsGraphics
-              title={this.props.activeMetric}
-              data={this.props.currentData}
-              x_label={this.props.activeMetric}
+              title={metric}
+              data={data}
+              x_label={metric}
               y_label="Proportion of Users"
               chart_type="histogram"
               width={600}
@@ -55,13 +59,13 @@ export class DistributionView extends Component {
           }
           {this.state.mode === "table" &&
             <TableMode
-              activeMetric = {this.props.activeMetric}
-              currentData = {this.props.currentData}
+              activeMetric = {metric}
+              currentData = {data}
             />
           }
         </Row>
         <Row>
-          <p>Mean: {this.props.mean}</p>
+          <p>Mean: {mean}</p>
         </Row>
       </Grid>
     );

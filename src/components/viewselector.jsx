@@ -18,12 +18,7 @@ export class ViewSelector extends Component {
             title={<span><i className="fas fa-chart-pie"></i> Summary</span>}
           >
             <SummaryView
-              activeVersion = {this.props.activeVersion}
-              activeMetric = {this.props.activeMetric}
-              activeChannel = {this.props.activeChannel}
-              change = {this.props.change}
-              median = {this.props.median}
-              nfifthPercentile = {this.props.nfifthPercentile}
+              dataStore = {this.props.dataStore}
             />
           </Tab>
           <Tab
@@ -31,9 +26,7 @@ export class ViewSelector extends Component {
             title={<span><i className="far fa-chart-bar"></i> Distribution</span>}
           >
             <DistributionView
-              activeMetric = {this.props.activeMetric}
-              currentData = {this.props.currentData}
-              mean = {this.props.mean}
+              dataStore = {this.props.dataStore}
             />
           </Tab>
           <Tab
@@ -47,8 +40,7 @@ export class ViewSelector extends Component {
             title={<span><i className="fas fa-chart-line"></i> Evolution</span>}
           >
             <EvolutionView
-              activeMetric = {this.props.activeMetric}
-              currentData = {this.props.currentData}
+              dataStore = {this.props.dataStore}
             />
           </Tab>
         </Tabs>
