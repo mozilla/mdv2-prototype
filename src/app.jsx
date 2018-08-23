@@ -93,6 +93,7 @@ class App extends React.Component {
         <ViewSelector
           dataStore = {this.dataStore}
           activeData = {this.state.activeData}
+          activeVersion = {this.state.activeVersion}
           onMetricChange = {this.onMetricChange}
         />
       </div>
