@@ -28,34 +28,35 @@ export class ComparisonView extends Component {
             <div>Hover over a point on the graph to view a specific set of values.</div>
           </Col>
           <Col>
-          <DropdownButton
-            id="selector"
-            title={this.state.compareVersion}
-          >
-            {this.props.dataStore.versionOptions.map( (option, index) => {
-              return (
-                <MenuItem
-                  key={index}
-                  eventKey={option}
-                  onSelect={this.handleChange}
-                >
-                  {option}
-                </MenuItem>);
-              })
-            }
-          </DropdownButton>
+            <DropdownButton
+              id="selector"
+              title={this.state.compareVersion}
+            >
+              {this.props.dataStore.versionOptions.map( (option, index) => {
+                return (
+                  <MenuItem
+                    key={index}
+                    eventKey={option}
+                    onSelect={this.handleChange}
+                  >
+                    {option}
+                  </MenuItem>);
+                })
+              }
+            </DropdownButton>
           </Col>
           <Col>
             <MetricsGraphics
               title={this.props.dataStore.active.metric}
               data={data}
+              chart_type="line"
               x_label={this.props.dataStore.active.metric}
               y_label="Proportion of Users"
               y_accessor="proportion"
               x_accessor="start"
               area={[true, true]}
-              width={650}
-              height={250}
+              full_width={true}
+              full_height={true}
             />
           </Col>
         </Row>

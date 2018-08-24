@@ -35,7 +35,6 @@ export class ViewSelector extends Component {
           >
             <ComparisonView
               dataStore = {this.props.dataStore}
-              activeVersion = {this.props.activeVersion}
             />
           </Tab>
           <Tab
