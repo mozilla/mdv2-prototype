@@ -33,7 +33,9 @@ export class ViewSelector extends Component {
             eventKey={"comparison"}
             title={<span><i className="fas fa-chart-area"></i> Comparison</span>}
           >
-            <ComparisonView />
+            <ComparisonView
+              dataStore = {this.props.dataStore}
+            />
           </Tab>
           <Tab
             eventKey={"evolution"}
