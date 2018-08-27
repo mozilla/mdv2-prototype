@@ -16,7 +16,11 @@ export class ComparisonView extends Component {
   }
 
   render() {
-    let data = [this.props.dataStore.active.data, GC_MS_nightly_61];
+    let data = [
+      this.props.dataStore.active.data,
+      GC_MS_nightly_61
+    ];
+    
     return (
       <Grid  className="comparison view" fluid>
         <Row>
