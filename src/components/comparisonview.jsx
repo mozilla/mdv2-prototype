@@ -31,6 +31,7 @@ export class ComparisonView extends Component {
             <div>Select a version below to compare against.</div>
             <div>Hover over a point on the graph to view a specific set of values.</div>
           </Col>
+        </Row>
         <Row>
           <Col>
             <div>Comparing against version:
