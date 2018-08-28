@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, DropdownButton, MenuItem} from "react-bootstrap";
 import MetricsGraphics from "react-metrics-graphics";
+import Plot from "react-plotly.js";
 import GC_MS_nightly_61 from "./../data/GC_MS_nightly_61";
 
 export class ComparisonView extends Component {
@@ -20,7 +21,7 @@ export class ComparisonView extends Component {
       this.props.dataStore.active.data,
       GC_MS_nightly_61
     ];
-    
+
     return (
       <Grid  className="comparison view" fluid>
         <Row>
@@ -31,6 +32,8 @@ export class ComparisonView extends Component {
             <div>Select a version below to compare against.</div>
             <div>Hover over a point on the graph to view a specific set of values.</div>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <div>Comparing against version:
               <DropdownButton
@@ -51,6 +54,8 @@ export class ComparisonView extends Component {
               </DropdownButton>
             </div>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <MetricsGraphics
               title={this.props.dataStore.active.metric}
@@ -61,8 +66,32 @@ export class ComparisonView extends Component {
               y_accessor="proportion"
               x_accessor="start"
               area={[true, true]}
-              full_width={true}
-              full_height={true}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Plot
+              data={[
+                {
+                  x: this.props.dataStore.active.data.start,
+                  y: this.props.dataStore.active.data.proportion,
+                  type: "histogram",
+                  opacity: 0.5,
+                  marker: {
+                    color: "green",
+                  },
+                },
+                {
+                  x: {GC_MS_nightly_61},
+                  y: {GC_MS_nightly_61},
+                  type: "histogram",
+                  opacity: 0.5,
+                  marker: {
+                    color: "blue",
+                  },
+                },
+              ]}
             />
           </Col>
         </Row>
