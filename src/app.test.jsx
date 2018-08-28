@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+jest.mock('react-plotly.js', () => "plot");
 import App from './app';
 
 it('renders without crashing', () => {
