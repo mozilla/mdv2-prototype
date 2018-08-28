@@ -20,7 +20,7 @@ export class ComparisonView extends Component {
       this.props.dataStore.active.data,
       GC_MS_nightly_61
     ];
-    
+
     return (
       <Grid  className="comparison view" fluid>
         <Row>
@@ -31,6 +31,7 @@ export class ComparisonView extends Component {
             <div>Select a version below to compare against.</div>
             <div>Hover over a point on the graph to view a specific set of values.</div>
           </Col>
+        <Row>
           <Col>
             <div>Comparing against version:
               <DropdownButton
@@ -51,6 +52,8 @@ export class ComparisonView extends Component {
               </DropdownButton>
             </div>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <MetricsGraphics
               title={this.props.dataStore.active.metric}
@@ -61,8 +64,6 @@ export class ComparisonView extends Component {
               y_accessor="proportion"
               x_accessor="start"
               area={[true, true]}
-              full_width={true}
-              full_height={true}
             />
           </Col>
         </Row>
