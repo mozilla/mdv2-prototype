@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, DropdownButton, MenuItem} from "react-bootstrap";
 import MetricsGraphics from "react-metrics-graphics";
+import Plot from "react-plotly.js";
 import GC_MS_nightly_61 from "./../data/GC_MS_nightly_61";
 
 export class ComparisonView extends Component {
@@ -65,6 +66,32 @@ export class ComparisonView extends Component {
               y_accessor="proportion"
               x_accessor="start"
               area={[true, true]}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Plot
+              data={[
+                {
+                  x: this.props.dataStore.active.data.start,
+                  y: this.props.dataStore.active.data.proportion,
+                  type: "histogram",
+                  opacity: 0.5,
+                  marker: {
+                    color: "green",
+                  },
+                },
+                {
+                  x: {GC_MS_nightly_61},
+                  y: {GC_MS_nightly_61},
+                  type: "histogram",
+                  opacity: 0.5,
+                  marker: {
+                    color: "blue",
+                  },
+                },
+              ]}
             />
           </Col>
         </Row>
