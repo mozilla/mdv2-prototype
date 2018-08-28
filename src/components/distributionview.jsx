@@ -10,10 +10,23 @@ export class DistributionView extends Component {
     this.state = {
       mode: "graph",
     };
+
+    this.onResize = () => {
+      this.setState({plotWidth: 0.75 * window.innerWidth});
+    };
   }
 
   handleChange = (event) => {
     this.setState({mode : event,});
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.onResize);
+    this.onResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
   }
 
   render() {
