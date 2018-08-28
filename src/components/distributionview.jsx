@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, ToggleButtonGroup, ToggleButton} from "react-bootstrap";
 import {TableMode} from "./tablemode.jsx";
-import MetricsGraphics from "react-metrics-graphics";
-import 'metrics-graphics/dist/metricsgraphics.css';
+import Plot from "react-plotly.js";
+import {format} from "d3";
 
 export class DistributionView extends Component {
   constructor(props) {
@@ -34,6 +34,26 @@ export class DistributionView extends Component {
     let metric = this.props.dataStore.active.metric;
     let data = this.props.dataStore.active.data;
 
+    let plotlyData = {
+      name: "metric",
+      type: "bar",
+      x: [],
+      y: [],
+      text: [],
+      customdata: [],
+    };
+    for (let {start, label, proportion, count, end} of data) {
+      if (label) {
+        plotlyData.x.push(label);
+        plotlyData.text.push(`${label} - ${format(".3s")(count)} clients`);
+      } else {
+        plotlyData.x.push(start);
+        plotlyData.text.push(`[${start}, ${end}] ${format(".3s")(count)} clients`);
+      }
+      plotlyData.y.push(proportion);
+      plotlyData.customdata.push(count);
+    }
+
     return (
       <Grid  className="distribution view" fluid>
         <Row>
@@ -57,17 +77,22 @@ export class DistributionView extends Component {
         </Row>
         <Row>
           {this.state.mode === "graph" &&
-            <MetricsGraphics
-              title={metric}
-              data={data}
-              x_label={metric}
-              y_label="Proportion of Users"
-              chart_type="histogram"
-              width={600}
-              height={250}
-              show_rollover_text={true}
-              y_accessor="proportion"
-              x_accessor="start"
+            <Plot
+              data={[plotlyData]}
+              layout={ {
+                type: "bar",
+                title: metric,
+                width: this.state.plotWidth,
+                xaxis: {
+                  type: "category",
+                  title: metric,
+                },
+                yaxis: {
+                  title: "Proportion of Users",
+                  hoverformat: ".3p",
+                  tickformat: ".3p",
+                },
+              } }
             />
           }
           {this.state.mode === "table" &&
