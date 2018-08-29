@@ -75,21 +75,36 @@ export class MetricData {
   }
 
   async loadDataFor(metric, channel, version) {
-    const response = await fetch(`/data/${metric}_${channel}_${version}.json`);
-    const data = await response.json();
+    try {
+      const response = await fetch(`/data/${metric}_${channel}_${version}.json`);
+      const data = await response.json();
 
-    this._active = {
-      ...this._active,
-      metric,
-      channel,
-      version,
-      data,
-    };
+      this._active = {
+        ...this._active,
+        metric,
+        channel,
+        version,
+        data,
+      };
+    } catch (e) {
+      console.warn(`Failed to load data for ${metric} ${channel} ${version}`, e);
+      this._active = {
+        ...this._active,
+        metric,
+        channel,
+        version,
+        data: [],
+      };
+    }
 
     this.updateCachedData();
   }
 
   getMean() {
+    if (this._active.data.length < 1) {
+      return NaN;
+    }
+
     let currentData = this._active.data;
     let buckets = [
       ...currentData.map(item => item.start),
@@ -128,6 +143,10 @@ export class MetricData {
   };
 
   getPercentile(percentile) {
+    if (this._active.data.length < 1) {
+      return NaN;
+    }
+
     let currentData = this._active.data;
     let buckets = [
       ...currentData.map(item => item.start),
@@ -153,6 +172,10 @@ export class MetricData {
   }
 
   getChange() {
+    if (this._active.data.length < 1) {
+      return NaN;
+    }
+
     let rawChange = this.getPercentile(50) - this.cached.lastMedian;
     let pctChange = (rawChange / this.cached.lastMedian) * 100;
     return pctChange;
