@@ -24,6 +24,10 @@ export class ComparisonView extends Component {
     let x1 = GC_MS_nightly_61.map(e => e.start);
     let y1 = GC_MS_nightly_61.map(e => e.count);
     let y2 = this.props.dataStore.active.data.map(e => e.count);
+  
+    const metricName = this.props.dataStore.active.metric;
+    const activeChannel = this.props.dataStore.active.channel;
+    const activeVersion = this.props.dataStore.active.version;
 
     return (
       <Grid  className="comparison view" fluid>
@@ -61,10 +65,10 @@ export class ComparisonView extends Component {
         <Row>
           <Col>
             <MetricsGraphics
-              title={this.props.dataStore.active.metric}
+              title={metricName}
               data={data}
               chart_type="line"
-              x_label={this.props.dataStore.active.metric}
+              x_label={metricName}
               y_label="Proportion of Users"
               y_accessor="proportion"
               x_accessor="start"
@@ -80,7 +84,7 @@ export class ComparisonView extends Component {
                   x: x1,
                   y: y1,
                   type: "bar",
-                  name: this.props.dataStore.active.channel + " " + this.state.compareVersion,
+                  name: activeChannel + " " + this.state.compareVersion,
                   opacity: 0.5,
                   mode: "markers",
                 },
@@ -88,17 +92,52 @@ export class ComparisonView extends Component {
                   x: x1,
                   y: y2,
                   type: "bar",
-                  name: this.props.dataStore.active.channel + " " + this.props.dataStore.active.version,
+                  name: activeChannel + " " + activeVersion,
                   opacity: 0.6,
                   mode: "markers",
                 },
               ]}
               layout={{
                 barmode: "overlay",
-                title: this.props.dataStore.active.metric,
+                title: metricName,
                 xaxis: {
                   type: "category",
-                  title: this.props.dataStore.active.metric,
+                  title: metricName,
+                },
+                yaxis: {
+                  title: "Number of Users",
+                },
+              }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Plot
+              data={[
+                {
+                  x: x1,
+                  y: y1,
+                  type: "bar",
+                  name: activeChannel + " " + this.state.compareVersion,
+                  opacity: 0.5,
+                  mode: "markers",
+                },
+                {
+                  x: x1,
+                  y: y2,
+                  type: "bar",
+                  name: activeChannel + " " + activeVersion,
+                  opacity: 0.6,
+                  mode: "markers",
+                },
+              ]}
+              layout={{
+                barmode: "group",
+                title: metricName,
+                xaxis: {
+                  type: "category",
+                  title: metricName,
                 },
                 yaxis: {
                   title: "Number of Users",
