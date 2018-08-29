@@ -80,7 +80,7 @@ export class ComparisonView extends Component {
                   x: x1,
                   y: y1,
                   type: "bar",
-                  name: "version 61",
+                  name: this.props.dataStore.active.channel + " " + this.state.compareVersion,
                   opacity: 0.5,
                   mode: "markers",
                 },
@@ -88,17 +88,17 @@ export class ComparisonView extends Component {
                   x: x1,
                   y: y2,
                   type: "bar",
-                  name: "version 62",
+                  name: this.props.dataStore.active.channel + " " + this.props.dataStore.active.version,
                   opacity: 0.6,
                   mode: "markers",
                 },
               ]}
               layout={{
                 barmode: "overlay",
-                title: "GC_MS_nightly",
+                title: this.props.dataStore.active.metric,
                 xaxis: {
                   type: "category",
-                  title: "GC_MS_nightly",
+                  title: this.props.dataStore.active.metric,
                 },
                 yaxis: {
                   title: "Number of Users",
