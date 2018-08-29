@@ -12,7 +12,9 @@ export class MetricSelector extends React.Component {
         <Autosuggest
           onChange={this.props.onMetricChange}
           datalist={this.props.metricOptions}
-          placeholder={this.props.activeMetric}
+          datalistOnly={true}
+          defaultValue={this.props.activeMetric}
+          required={true}
           ref={input => this.search = input}
         />
       </form>
