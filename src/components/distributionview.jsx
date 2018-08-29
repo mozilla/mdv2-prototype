@@ -14,6 +14,12 @@ export class DistributionView extends Component {
     this.onResize = () => {
       this.setState({plotWidth: 0.75 * window.innerWidth});
     };
+
+    this.formatCount = (count) => {
+      // For values with fewer than four digits, just display the value. For
+      // values with more than four digits, show three sig figs and a suffix.
+      return count < 1000 ? count : format(".3s")(count);
+    };
   }
 
   handleChange = (event) => {
@@ -35,20 +41,21 @@ export class DistributionView extends Component {
     let data = this.props.dataStore.active.data;
 
     let plotlyData = {
-      name: "metric",
+      name: metric,
       type: "bar",
       x: [],
       y: [],
       text: [],
       customdata: [],
+      hoverinfo: "y+text",
     };
     for (let {start, label, proportion, count, end} of data) {
       if (label) {
         plotlyData.x.push(label);
-        plotlyData.text.push(`${label} - ${format(".3s")(count)} clients`);
+        plotlyData.text.push(`${label} - ${this.formatCount(count)} clients`);
       } else {
         plotlyData.x.push(start);
-        plotlyData.text.push(`[${start}, ${end}] ${format(".3s")(count)} clients`);
+        plotlyData.text.push(`[${start}, ${end}] - ${this.formatCount(count)} clients`);
       }
       plotlyData.y.push(proportion);
       plotlyData.customdata.push(count);
