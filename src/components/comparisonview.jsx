@@ -107,6 +107,41 @@ export class ComparisonView extends Component {
             />
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <Plot
+              data={[
+                {
+                  x: x1,
+                  y: y1,
+                  type: "bar",
+                  name: this.props.dataStore.active.channel + " " + this.state.compareVersion,
+                  opacity: 0.5,
+                  mode: "markers",
+                },
+                {
+                  x: x1,
+                  y: y2,
+                  type: "bar",
+                  name: this.props.dataStore.active.channel + " " + this.props.dataStore.active.version,
+                  opacity: 0.6,
+                  mode: "markers",
+                },
+              ]}
+              layout={{
+                barmode: "group",
+                title: this.props.dataStore.active.metric,
+                xaxis: {
+                  type: "category",
+                  title: this.props.dataStore.active.metric,
+                },
+                yaxis: {
+                  title: "Number of Users",
+                },
+              }}
+            />
+          </Col>
+        </Row>
       </Grid>
     );
   }
