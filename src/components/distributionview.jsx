@@ -49,14 +49,19 @@ export class DistributionView extends Component {
       customdata: [],
       hoverinfo: "y+text",
     };
+
     for (let {start, label, proportion, count, end} of data) {
+      let x;
+      let text;
       if (label) {
-        plotlyData.x.push(label);
-        plotlyData.text.push(`${label} - ${this.formatCount(count)} clients`);
+        x = label;
+        text = `${label} - ${this.formatCount(count)} clients`;
       } else {
-        plotlyData.x.push(start);
-        plotlyData.text.push(`[${start}, ${end}] - ${this.formatCount(count)} clients`);
+        x = start;
+        text = `[${start}, ${end-1}) - ${this.formatCount(count)} clients`;
       }
+      plotlyData.x.push(x);
+      plotlyData.text.push(text);
       plotlyData.y.push(proportion);
       plotlyData.customdata.push(count);
     }
