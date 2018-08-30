@@ -76,7 +76,7 @@ export class MetricData {
 
   async loadDataFor(metric, channel, version) {
     try {
-      const response = await fetch(`/data/${metric}_${channel}_${version}.json`);
+      const response = await fetch(`data/${metric}_${channel}_${version}.json`);
       const data = await response.json();
 
       this._active = {
