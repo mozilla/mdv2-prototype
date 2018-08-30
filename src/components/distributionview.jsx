@@ -20,6 +20,35 @@ export class DistributionView extends Component {
       // values with more than four digits, show three sig figs and a suffix.
       return count < 1000 ? count : format(".3s")(count);
     };
+
+    this.makePlotly = (data) => {
+      let plotlyData = {
+        type: "bar",
+        x: [],
+        y: [],
+        text: [],
+        customdata: [],
+        hoverinfo: "y+text",
+      };
+
+      for (let {start, label, proportion, count, end} of data) {
+        let x;
+        let text;
+        if (label) {
+          x = label;
+          text = `${label} - ${this.formatCount(count)} clients`;
+        } else {
+          x = start;
+          text = `[${start}, ${end-1}) - ${this.formatCount(count)} clients`;
+        }
+        plotlyData.x.push(x);
+        plotlyData.text.push(text);
+        plotlyData.y.push(proportion);
+        plotlyData.customdata.push(count);
+      }
+
+      return plotlyData;
+    };
   }
 
   handleChange = (event) => {
@@ -40,31 +69,7 @@ export class DistributionView extends Component {
     let metric = this.props.dataStore.active.metric;
     let data = this.props.dataStore.active.data;
 
-    let plotlyData = {
-      name: metric,
-      type: "bar",
-      x: [],
-      y: [],
-      text: [],
-      customdata: [],
-      hoverinfo: "y+text",
-    };
-
-    for (let {start, label, proportion, count, end} of data) {
-      let x;
-      let text;
-      if (label) {
-        x = label;
-        text = `${label} - ${this.formatCount(count)} clients`;
-      } else {
-        x = start;
-        text = `[${start}, ${end-1}) - ${this.formatCount(count)} clients`;
-      }
-      plotlyData.x.push(x);
-      plotlyData.text.push(text);
-      plotlyData.y.push(proportion);
-      plotlyData.customdata.push(count);
-    }
+    let plotData = [this.makePlotly(data)];
 
     return (
       <Grid  className="distribution view" fluid>
@@ -90,7 +95,7 @@ export class DistributionView extends Component {
         <Row>
           {this.state.mode === "graph" &&
             <Plot
-              data={[plotlyData]}
+              data={plotData}
               layout={ {
                 type: "bar",
                 title: metric,
