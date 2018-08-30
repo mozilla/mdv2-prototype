@@ -69,7 +69,35 @@ export class DistributionView extends Component {
     let metric = this.props.dataStore.active.metric;
     let data = this.props.dataStore.active.data;
 
-    let plotData = [this.makePlotly(data)];
+    const BOOL_MEASURES = [
+      'scalars_devtools_onboarding_is_devtools_user',
+    ];
+
+    let plotData;
+    if (BOOL_MEASURES.includes(metric)) {
+      // need to calculate "sometimes true" and "sometimes false" data
+      const neverCount = data[0].count;
+      const neverProp = data[0].proportion;
+      const alwaysCount = data[1].count;
+      const alwaysProp = data[1].proportion;
+      const totalCount = Math.ceil(neverCount / neverProp);
+      data.push({
+        start: 2,
+        end: null,
+        label: "sometimes",
+        count: totalCount - neverCount - alwaysCount,
+        proportion: 1 - neverProp - alwaysProp,
+      });
+      plotData = data.map(datum => {
+        let plotDatum = this.makePlotly([datum]);
+        plotDatum.name = datum.label;
+        plotDatum.x[0] = metric;
+        return plotDatum;
+      });
+    } else {
+      plotData = [this.makePlotly(data)];
+    }
+
 
     return (
       <Grid  className="distribution view" fluid>
@@ -100,6 +128,7 @@ export class DistributionView extends Component {
                 type: "bar",
                 title: metric,
                 width: this.state.plotWidth,
+                barmode: 'stack',
                 xaxis: {
                   type: "category",
                   title: metric,
