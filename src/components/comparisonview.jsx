@@ -12,8 +12,21 @@ export class ComparisonView extends Component {
     };
   }
 
+  onResize = () => {
+    this.setState({plotWidth: 0.75 * window.innerWidth});
+  };
+
   handleChange = (event) => {
     this.setState({compareVersion: event});
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.onResize);
+    this.onResize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
   }
 
   render() {
@@ -24,7 +37,7 @@ export class ComparisonView extends Component {
     let x1 = GC_MS_nightly_61.map(e => e.start);
     let y1 = GC_MS_nightly_61.map(e => e.count);
     let y2 = this.props.dataStore.active.data.map(e => e.count);
-  
+
     const metricName = this.props.dataStore.active.metric;
     const activeChannel = this.props.dataStore.active.channel;
     const activeVersion = this.props.dataStore.active.version;
@@ -73,6 +86,8 @@ export class ComparisonView extends Component {
               y_accessor="proportion"
               x_accessor="start"
               area={[true, true]}
+              x_scale_type= "log"
+              width= {this.state.plotWidth}
             />
           </Col>
         </Row>
@@ -107,6 +122,7 @@ export class ComparisonView extends Component {
                 yaxis: {
                   title: "Number of Users",
                 },
+                width: this.state.plotWidth,
               }}
             />
           </Col>
@@ -142,6 +158,7 @@ export class ComparisonView extends Component {
                 yaxis: {
                   title: "Number of Users",
                 },
+                width: this.state.plotWidth,
               }}
             />
           </Col>
