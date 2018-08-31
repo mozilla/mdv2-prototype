@@ -19,6 +19,40 @@ export class MetricData {
     };
   }
 
+<<<<<<< HEAD
+=======
+  get active() {
+    return {
+      metric: this._active.metric,
+      channel: this._active.channel,
+      version: this._active.version,
+      data: this._active.data,
+    };
+  }
+
+  get metricOptions() {
+    return [
+      "GC_MS",
+      "HTTP_SCHEME_UPGRADE_TYPE",
+      "scalars_devtools_onboarding_is_devtools_user",
+      "scalars_telemetry_os_shutting_down",
+    ];
+  }
+
+  get channelOptions() {
+    return [
+      "nightly",
+      "beta",
+      "dev edition",
+      "release"
+    ];
+  }
+
+  get versionOptions() {
+    return ["60", "61", "62"];
+  }
+
+>>>>>>> Add some more boolean sample data to evaluate designs
   get mean() {
     return this.getMean();
   }

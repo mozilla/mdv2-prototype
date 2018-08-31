@@ -70,7 +70,8 @@ export class DistributionView extends Component {
     let data = this.props.dataStore.active.data;
 
     const BOOL_MEASURES = [
-      'scalars_devtools_onboarding_is_devtools_user',
+      "scalars_devtools_onboarding_is_devtools_user",
+      "scalars_telemetry_os_shutting_down",
     ];
 
     let plotData;
