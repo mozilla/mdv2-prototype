@@ -74,6 +74,8 @@ export class DistributionView extends Component {
     ];
 
     let plotData;
+    let plotDataGrouped;
+    let plotDataStacked2;
     if (BOOL_MEASURES.includes(metric)) {
       // need to calculate "sometimes true" and "sometimes false" data
       const neverCount = data[0].count;
@@ -81,23 +83,55 @@ export class DistributionView extends Component {
       const alwaysCount = data[1].count;
       const alwaysProp = data[1].proportion;
       const totalCount = Math.ceil(neverCount / neverProp);
-      data.push({
+      data = [...data, {
         start: 2,
         end: null,
         label: "sometimes",
         count: totalCount - neverCount - alwaysCount,
         proportion: 1 - neverProp - alwaysProp,
-      });
+      }];
       plotData = data.map(datum => {
         let plotDatum = this.makePlotly([datum]);
         plotDatum.name = datum.label;
         plotDatum.x[0] = metric;
         return plotDatum;
       });
+      const sometimesTrue = {
+        start: 2,
+        end: null,
+        label: "sometimes true",
+        count: totalCount - neverCount,
+        proportion: 1 - neverProp,
+      };
+      const sometimesFalse = {
+        start: 3,
+        end: null,
+        label: "sometimes false",
+        count: totalCount - alwaysCount,
+        proportion: 1 - alwaysProp,
+      };
+      plotDataGrouped = [
+        {
+          ...this.makePlotly(data),
+          x: ["false", "true"],
+          name: "always",
+          marker: {
+            color: "#ff7f0e", // plotly orange
+          },
+        },
+        {
+          ...this.makePlotly([sometimesTrue, sometimesFalse]),
+          x: ["true", "false"],
+          name: "sometimes",
+          marker: {
+            color: "#1f77b4", // plotly blue
+          },
+        },
+      ];
+      plotDataStacked2 = plotDataGrouped;
     } else {
-      plotData = [this.makePlotly(data)];
+      plotData = plotDataGrouped = plotDataStacked2 = [this.makePlotly(data)];
     }
-
 
     return (
       <Grid  className="distribution view" fluid>
@@ -147,6 +181,46 @@ export class DistributionView extends Component {
               currentData = {data}
             />
           }
+        </Row>
+        <Row>
+          <Plot
+            data={plotDataGrouped}
+            layout={ {
+              type: "bar",
+              title: metric,
+              width: this.state.plotWidth,
+              barmode: 'group',
+              xaxis: {
+                type: "category",
+                title: metric,
+              },
+              yaxis: {
+                title: "Proportion of Users",
+                hoverformat: ".3p",
+                tickformat: ".3p",
+              },
+            } }
+          />
+        </Row>
+        <Row>
+          <Plot
+            data={plotDataStacked2}
+            layout={ {
+              type: "bar",
+              title: metric,
+              width: this.state.plotWidth,
+              barmode: 'stack',
+              xaxis: {
+                type: "category",
+                title: metric,
+              },
+              yaxis: {
+                title: "Proportion of Users",
+                hoverformat: ".3p",
+                tickformat: ".3p",
+              },
+            } }
+          />
         </Row>
         <Row>
           <p>Mean: {mean}</p>
