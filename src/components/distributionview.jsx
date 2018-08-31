@@ -64,6 +64,59 @@ export class DistributionView extends Component {
     window.removeEventListener("resize", this.onResize);
   }
 
+  makeBooleanData = (metric, [never, always]) => {
+    const totalCount = Math.ceil(never.count / never.proportion);
+    const sometimes = {
+      start: 2,
+      end: null,
+      label: "sometimes",
+      count: totalCount - never.count - always.count,
+      proportion: 1 - never.proportion - always.proportion,
+    };
+    const sometimesTrue = {
+      start: 2,
+      end: 3,
+      label: "sometimes true",
+      count: totalCount - never.count,
+      proportion: 1 - never.proportion,
+    };
+    const sometimesFalse = {
+      start: 3,
+      end: null,
+      label: "sometimes false",
+      count: totalCount - always.count,
+      proportion: 1 - always.proportion,
+    };
+
+    const threeTraces = [never, always, sometimes].map(datum => {
+      let plotDatum = this.makePlotly([datum]);
+      plotDatum.name = datum.label;
+      plotDatum.x[0] = metric;
+      return plotDatum;
+    });
+
+    const twoTraces = [
+      {
+        ...this.makePlotly([never, always]),
+        x: ["false", "true"],
+        name: "always",
+        marker: {
+          color: "#ff7f0e", // plotly orange
+        },
+      },
+      {
+        ...this.makePlotly([sometimesTrue, sometimesFalse]),
+        x: ["true", "false"],
+        name: "sometimes",
+        marker: {
+          color: "#1f77b4", // plotly blue
+        },
+      },
+    ];
+
+    return {threeTraces, twoTraces};
+  }
+
   render() {
     let mean = this.props.dataStore.mean.toFixed(2);
     let metric = this.props.dataStore.active.metric;
@@ -78,58 +131,9 @@ export class DistributionView extends Component {
     let plotDataGrouped;
     let plotDataStacked2;
     if (BOOL_MEASURES.includes(metric)) {
-      // need to calculate "sometimes true" and "sometimes false" data
-      const neverCount = data[0].count;
-      const neverProp = data[0].proportion;
-      const alwaysCount = data[1].count;
-      const alwaysProp = data[1].proportion;
-      const totalCount = Math.ceil(neverCount / neverProp);
-      data = [...data, {
-        start: 2,
-        end: null,
-        label: "sometimes",
-        count: totalCount - neverCount - alwaysCount,
-        proportion: 1 - neverProp - alwaysProp,
-      }];
-      plotData = data.map(datum => {
-        let plotDatum = this.makePlotly([datum]);
-        plotDatum.name = datum.label;
-        plotDatum.x[0] = metric;
-        return plotDatum;
-      });
-      const sometimesTrue = {
-        start: 2,
-        end: null,
-        label: "sometimes true",
-        count: totalCount - neverCount,
-        proportion: 1 - neverProp,
-      };
-      const sometimesFalse = {
-        start: 3,
-        end: null,
-        label: "sometimes false",
-        count: totalCount - alwaysCount,
-        proportion: 1 - alwaysProp,
-      };
-      plotDataGrouped = [
-        {
-          ...this.makePlotly(data),
-          x: ["false", "true"],
-          name: "always",
-          marker: {
-            color: "#ff7f0e", // plotly orange
-          },
-        },
-        {
-          ...this.makePlotly([sometimesTrue, sometimesFalse]),
-          x: ["true", "false"],
-          name: "sometimes",
-          marker: {
-            color: "#1f77b4", // plotly blue
-          },
-        },
-      ];
-      plotDataStacked2 = plotDataGrouped;
+      let {threeTraces, twoTraces} = this.makeBooleanData(metric, data);
+      plotData = threeTraces;
+      plotDataStacked2 = plotDataGrouped = twoTraces;
     } else {
       plotData = plotDataGrouped = plotDataStacked2 = [this.makePlotly(data)];
     }
