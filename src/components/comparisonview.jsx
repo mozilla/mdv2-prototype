@@ -30,11 +30,12 @@ export class ComparisonView extends Component {
   }
 
   render() {
-    if (this.props.dataStore.active.metric != "GC_MS") {
+    if (this.props.dataStore.active.metric !== "GC_MS") {
       return (
         <div>Cannot compare {this.props.dataStore.active.metric} to GC_MS</div>
       );
     }
+
     let data = [
       this.props.dataStore.active.data,
       GC_MS_nightly_61
