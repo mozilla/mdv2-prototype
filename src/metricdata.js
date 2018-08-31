@@ -34,7 +34,8 @@ export class MetricData {
     return [
       "GC_MS",
       "HTTP_SCHEME_UPGRADE_TYPE",
-      "scalars_devtools_onboarding_is_devtools_user"
+      "scalars_devtools_onboarding_is_devtools_user",
+      "scalars_telemetry_os_shutting_down",
     ];
   }
 
