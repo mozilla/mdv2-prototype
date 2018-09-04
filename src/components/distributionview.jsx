@@ -85,7 +85,6 @@ export class DistributionView extends Component {
   }
 
   render() {
-    let mean = this.props.dataStore.mean.toFixed(2);
     let metric = this.props.dataStore.active.metric;
     let data = this.props.dataStore.active.data;
 
@@ -148,9 +147,6 @@ export class DistributionView extends Component {
               currentData = {data}
             />
           }
-        </Row>
-        <Row>
-          <p>Mean: {mean}</p>
         </Row>
       </Grid>
     );
