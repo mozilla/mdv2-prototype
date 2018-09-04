@@ -64,7 +64,7 @@ export class DistributionView extends Component {
     window.removeEventListener("resize", this.onResize);
   }
 
-  makeBooleanData = (metric, [never, always]) => {
+  makeBooleanData(metric, [never, always]) {
     const totalCount = Math.ceil(never.count / never.proportion);
     const sometimes = {
       start: 2,
