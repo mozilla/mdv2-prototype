@@ -94,8 +94,14 @@ export class DistributionView extends Component {
     ];
 
     let plotData;
+    let extraMessage;
     if (BOOL_MEASURES.includes(metric)) {
       plotData = this.makeBooleanData(metric, data);
+      const trueCount = Math.ceil(data[0].count / data[0].proportion) - data[0].count;
+      const trueProportion = ((1 - data[0].proportion) * 100).toFixed(2);
+      extraMessage = (
+        <h4>Clients reporting true at least once for {metric}: {trueCount} ({trueProportion}%)</h4>
+      );
     } else {
       plotData = [this.makePlotly(data)];
     }
@@ -107,6 +113,7 @@ export class DistributionView extends Component {
             <i className="fas fa-info-circle"></i> The distribution view displays the distribution of user outcomes as a histogram.
             <div>Hover over a point on the graph to view a specific value.</div>
             <div>Or, switch to table mode below to see a list of all absolute values.</div>
+            {extraMessage}
           </Col>
         </Row>
         <Row>
