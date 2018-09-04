@@ -73,48 +73,15 @@ export class DistributionView extends Component {
       count: totalCount - never.count - always.count,
       proportion: 1 - never.proportion - always.proportion,
     };
-    const sometimesTrue = {
-      start: 2,
-      end: 3,
-      label: "sometimes true",
-      count: totalCount - never.count,
-      proportion: 1 - never.proportion,
-    };
-    const sometimesFalse = {
-      start: 3,
-      end: null,
-      label: "sometimes false",
-      count: totalCount - always.count,
-      proportion: 1 - always.proportion,
-    };
 
-    const threeTraces = [never, always, sometimes].map(datum => {
+    const threeTraces = [always, sometimes, never].map(datum => {
       let plotDatum = this.makePlotly([datum]);
       plotDatum.name = datum.label;
-      plotDatum.x[0] = metric;
+      plotDatum.x[0] = "";
       return plotDatum;
     });
 
-    const twoTraces = [
-      {
-        ...this.makePlotly([never, always]),
-        x: ["false", "true"],
-        name: "always",
-        marker: {
-          color: "#ff7f0e", // plotly orange
-        },
-      },
-      {
-        ...this.makePlotly([sometimesTrue, sometimesFalse]),
-        x: ["true", "false"],
-        name: "sometimes",
-        marker: {
-          color: "#1f77b4", // plotly blue
-        },
-      },
-    ];
-
-    return {threeTraces, twoTraces};
+    return threeTraces;
   }
 
   render() {
@@ -128,14 +95,10 @@ export class DistributionView extends Component {
     ];
 
     let plotData;
-    let plotDataGrouped;
-    let plotDataStacked2;
     if (BOOL_MEASURES.includes(metric)) {
-      let {threeTraces, twoTraces} = this.makeBooleanData(metric, data);
-      plotData = threeTraces;
-      plotDataStacked2 = plotDataGrouped = twoTraces;
+      plotData = this.makeBooleanData(metric, data);
     } else {
-      plotData = plotDataGrouped = plotDataStacked2 = [this.makePlotly(data)];
+      plotData = [this.makePlotly(data)];
     }
 
     return (
@@ -167,7 +130,6 @@ export class DistributionView extends Component {
                 type: "bar",
                 title: metric,
                 width: this.state.plotWidth,
-                barmode: 'stack',
                 xaxis: {
                   type: "category",
                   title: metric,
@@ -186,46 +148,6 @@ export class DistributionView extends Component {
               currentData = {data}
             />
           }
-        </Row>
-        <Row>
-          <Plot
-            data={plotDataGrouped}
-            layout={ {
-              type: "bar",
-              title: metric,
-              width: this.state.plotWidth,
-              barmode: 'group',
-              xaxis: {
-                type: "category",
-                title: metric,
-              },
-              yaxis: {
-                title: "Proportion of Users",
-                hoverformat: ".3p",
-                tickformat: ".3p",
-              },
-            } }
-          />
-        </Row>
-        <Row>
-          <Plot
-            data={plotDataStacked2}
-            layout={ {
-              type: "bar",
-              title: metric,
-              width: this.state.plotWidth,
-              barmode: 'stack',
-              xaxis: {
-                type: "category",
-                title: metric,
-              },
-              yaxis: {
-                title: "Proportion of Users",
-                hoverformat: ".3p",
-                tickformat: ".3p",
-              },
-            } }
-          />
         </Row>
         <Row>
           <p>Mean: {mean}</p>
