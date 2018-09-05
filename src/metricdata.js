@@ -1,26 +1,9 @@
-<<<<<<< HEAD
 import fetch from "isomorphic-fetch";
-=======
-<<<<<<< HEAD
-
-import fetch from "isomorphic-fetch";
-
-=======
->>>>>>> Updates to datastore.
->>>>>>> Rebase to moz/master.
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 
 export class MetricData {
   constructor(props) {
-<<<<<<< HEAD
-    this.state = {
-=======
-<<<<<<< HEAD
-    this._active = {
-=======
     this.probe = {
->>>>>>> Updates to datastore.
->>>>>>> Rebase to moz/master.
       metric: "GC_MS",
       channel: "nightly",
       version: "62",
@@ -33,17 +16,6 @@ export class MetricData {
       median: "",
       mean: "",
       lastMedian: 315,
-    };
-  }
-
-<<<<<<< HEAD
-=======
-  get active() {
-    return {
-      metric: this._active.metric,
-      channel: this._active.channel,
-      version: this._active.version,
-      data: this._active.data,
     };
   }
 
@@ -69,7 +41,6 @@ export class MetricData {
     return ["60", "61", "62"];
   }
 
->>>>>>> Add some more boolean sample data to evaluate designs
   get mean() {
     return this.getMean();
   }
