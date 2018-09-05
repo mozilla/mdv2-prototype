@@ -35,6 +35,47 @@ export class SummaryView extends Component {
     );
   }
 
+  renderFirstN(array, n) {
+    return array.map((datum, i) => {
+      if (i < n) {
+        return <li> {format(".4p")(datum.proportion)} {datum.label} ({datum.count})</li>
+      }
+      return null;
+    })
+  }
+
+  renderCategoricalText() {
+    const orderedData = this.props.dataStore.active.data
+      .filter(datum => datum.label !== "spill")
+      .sort((a, b) => a.count < b.count);
+    const reverseData = this.props.dataStore.active.data
+      .filter(datum => datum.label !== "spill")
+      .sort((a, b) => a.count > b.count);
+
+    const pctFormat = format(".4p");
+
+    const metric = this.props.dataStore.active.metric;
+    const channel = this.props.dataStore.active.channel;
+    const version = this.props.dataStore.active.version;
+
+    const NUM_COMMON_CATEGORIES = 3;
+
+    return (
+      <Row>
+        <h3>Most Common: {orderedData[0].label} ({pctFormat(orderedData[0].proportion)})</h3>
+        <p>The most common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
+        <ol>
+          {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES)}
+        </ol>
+        <h3>Least Common: {reverseData[0].label} ({pctFormat(reverseData[0].proportion)})</h3>
+        <p>The least common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
+        <ol>
+          {this.renderFirstN(reverseData, NUM_COMMON_CATEGORIES)}
+        </ol>
+      </Row>
+    );
+  }
+
   renderNumericText() {
     const median = this.props.dataStore.median.toFixed(2);
     const nfifth = this.props.dataStore.nfifthPercentile.toFixed(2);
@@ -42,7 +83,7 @@ export class SummaryView extends Component {
 
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
-    const version = this.props.activeVersion;
+    const version = this.props.dataStore.active.version;
 
     return (
       <Row>
@@ -76,9 +117,18 @@ export class SummaryView extends Component {
       "scalars_telemetry_os_shutting_down",
     ];
 
-    let innerText = BOOL_MEASURES.includes(metric)
-      ? this.renderBooleanText()
-      : this.renderNumericText();
+    const CATEGORICAL_MEASURES = [
+      "HTTP_SCHEME_UPGRADE_TYPE",
+    ];
+
+    let innerText;
+    if (BOOL_MEASURES.includes(metric)) {
+      innerText = this.renderBooleanText();
+    } else if (CATEGORICAL_MEASURES.includes(metric)) {
+      innerText = this.renderCategoricalText();
+    } else {
+      innerText = this.renderNumericText();
+    }
 
     return (
       <Grid className="summary view" fluid>
