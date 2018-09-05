@@ -30,23 +30,23 @@ export class ComparisonView extends Component {
   }
 
   render() {
-    if (this.props.dataStore.active.metric !== "GC_MS") {
+    if (this.props.dataStore._active.metric !== "GC_MS") {
       return (
-        <div>Cannot compare {this.props.dataStore.active.metric} to GC_MS</div>
+        <div>Cannot compare {this.props.dataStore._active.metric} to GC_MS</div>
       );
     }
 
     let data = [
-      this.props.dataStore.active.data,
+      this.props.dataStore._active.data,
       GC_MS_nightly_61
     ];
     let x1 = GC_MS_nightly_61.map(e => e.start);
     let y1 = GC_MS_nightly_61.map(e => e.count);
-    let y2 = this.props.dataStore.active.data.map(e => e.count);
+    let y2 = this.props.dataStore._active.data.map(e => e.count);
 
-    const metricName = this.props.dataStore.active.metric;
-    const activeChannel = this.props.dataStore.active.channel;
-    const activeVersion = this.props.dataStore.active.version;
+    const metricName = this.props.dataStore._active.metric;
+    const activeChannel = this.props.dataStore._active.channel;
+    const activeVersion = this.props.dataStore._active.version;
 
     return (
       <Grid  className="comparison view" fluid>

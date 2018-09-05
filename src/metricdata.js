@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 
 import fetch from "isomorphic-fetch";
 
+=======
+>>>>>>> Refactor datastore and metricdata.
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 
 export class MetricData {
   constructor(props) {
+<<<<<<< HEAD
     this._active = {
       metric: "GC_MS",
       channel: "nightly",
@@ -12,6 +16,12 @@ export class MetricData {
       data: GC_MS_nightly_62,
     };
 
+=======
+    this.metric= "GC_MS";
+    this.channel= "nightly";
+    this.version= "62";
+    this.data= GC_MS_nightly_62;
+>>>>>>> Refactor datastore and metricdata.
     this.cached = {
       change: "",
       nfifthPercentile: "",
@@ -102,11 +112,19 @@ export class MetricData {
   }
 
   getMean() {
+<<<<<<< HEAD
     if (this._active.data.length < 1) {
       return NaN;
     }
 
     let currentData = this._active.data;
+=======
+    if (this.data.length < 1) {
+      return NaN;
+    }
+
+    let currentData = this.data;
+>>>>>>> Refactor datastore and metricdata.
     let buckets = [
       ...currentData.map(item => item.start),
       this.getLastBucketUpper(),
@@ -128,14 +146,23 @@ export class MetricData {
   }
 
   getLastBucketUpper() {
+<<<<<<< HEAD
     let currentData = this._active.data;
+=======
+    let currentData = this.data;
+>>>>>>> Refactor datastore and metricdata.
     let buckets = currentData.map(item => item.start);
     if (currentData.length === 1) {
       return buckets[0] + 1;
     }
 
+<<<<<<< HEAD
     /*if (this.state.activeMetric.type === "linear" || this.state.activeMetric.type === "flag" || this.state.activeMetric.type ===
     "boolean" || this.state.activeMetric.type === "enumerated") {
+=======
+    /*if (this..activeMetric.type === "linear" || this..activeMetric.type === "flag" || this..activeMetric.type ===
+    "boolean" || this..activeMetric.type === "enumerated") {
+>>>>>>> Refactor datastore and metricdata.
       return buckets[buckets.length - 1] + buckets[buckets.length - 1]
       - buckets[buckets.length -2];
     }*/
@@ -144,11 +171,19 @@ export class MetricData {
   };
 
   getPercentile(percentile) {
+<<<<<<< HEAD
     if (this._active.data.length < 1) {
       return NaN;
     }
 
     let currentData = this._active.data;
+=======
+    if (this.data.length < 1) {
+      return NaN;
+    }
+
+    let currentData = this.data;
+>>>>>>> Refactor datastore and metricdata.
     let buckets = [
       ...currentData.map(item => item.start),
       this.getLastBucketUpper(),
@@ -173,7 +208,11 @@ export class MetricData {
   }
 
   getChange() {
+<<<<<<< HEAD
     if (this._active.data.length < 1) {
+=======
+    if (this.data.length < 1) {
+>>>>>>> Refactor datastore and metricdata.
       return NaN;
     }
 

@@ -10,6 +10,10 @@ export class SummaryView extends Component {
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.activeVersion;
+<<<<<<< HEAD
+=======
+    console.log(this.props.dataStore);
+>>>>>>> Refactor datastore and metricdata.
 
     return (
       <Grid className="summary view" fluid>
