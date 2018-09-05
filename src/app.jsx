@@ -1,13 +1,6 @@
 import React from "react";
-<<<<<<< HEAD
-import {DataStore} from "./datastore.jsx";
-=======
-<<<<<<< HEAD
-
-=======
 import {DataStore} from "./datastore.js";
->>>>>>> Updates to datastore.
->>>>>>> Rebase to moz/master.
+
 import "./app.css";
 
 import {Navigation} from "./components/navigation.jsx";
@@ -19,18 +12,10 @@ import {ChannelSelector} from "./components/channelselector.jsx";
 class App extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
     this.dataStore = new DataStore();
-=======
-<<<<<<< HEAD
-
-    this.dataStore = new MetricData();
->>>>>>> Rebase to moz/master.
     let active = this.dataStore.active;
-=======
     this.dataStore = new DataStore();
     let active = this.dataStore._active;
->>>>>>> Updates to datastore.
     this.state = {
       activeMetric: active.metric,
       activeChannel: active.channel,
