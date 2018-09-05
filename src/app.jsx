@@ -1,4 +1,5 @@
 import React from "react";
+import {DataStore} from "./datastore.js";
 
 import "./app.css";
 
@@ -8,14 +9,13 @@ import {MetricSelector} from "./components/metricselector.jsx";
 import {VersionSelector} from "./components/versionselector.jsx";
 import {ChannelSelector} from "./components/channelselector.jsx";
 
-import {MetricData} from "./metricdata.js";
-
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-    this.dataStore = new MetricData();
+    this.dataStore = new DataStore();
     let active = this.dataStore.active;
+    this.dataStore = new DataStore();
+    let active = this.dataStore._active;
     this.state = {
       activeMetric: active.metric,
       activeChannel: active.channel,
