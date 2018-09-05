@@ -8,8 +8,6 @@ import {MetricSelector} from "./components/metricselector.jsx";
 import {VersionSelector} from "./components/versionselector.jsx";
 import {ChannelSelector} from "./components/channelselector.jsx";
 
-import {MetricData} from "./metricdata.js";
-
 class App extends React.Component {
   constructor(props) {
     super(props);
