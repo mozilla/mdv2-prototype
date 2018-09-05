@@ -1,9 +1,26 @@
+<<<<<<< HEAD
 import fetch from "isomorphic-fetch";
+=======
+<<<<<<< HEAD
+
+import fetch from "isomorphic-fetch";
+
+=======
+>>>>>>> Updates to datastore.
+>>>>>>> Rebase to moz/master.
 import GC_MS_nightly_62 from "./data/GC_MS_nightly_62.json";
 
 export class MetricData {
   constructor(props) {
+<<<<<<< HEAD
     this.state = {
+=======
+<<<<<<< HEAD
+    this._active = {
+=======
+    this.probe = {
+>>>>>>> Updates to datastore.
+>>>>>>> Rebase to moz/master.
       metric: "GC_MS",
       channel: "nightly",
       version: "62",
@@ -77,11 +94,11 @@ export class MetricData {
   }
 
   getMean() {
-    if (this._active.data.length < 1) {
+    if (this.probe.data.length < 1) {
       return NaN;
     }
 
-    let currentData = this._active.data;
+    let currentData = this.probe.data;
     let buckets = [
       ...currentData.map(item => item.start),
       this.getLastBucketUpper(),
@@ -103,14 +120,14 @@ export class MetricData {
   }
 
   getLastBucketUpper() {
-    let currentData = this._active.data;
+    let currentData = this.probe.data;
     let buckets = currentData.map(item => item.start);
     if (currentData.length === 1) {
       return buckets[0] + 1;
     }
 
-    /*if (this.state.activeMetric.type === "linear" || this.state.activeMetric.type === "flag" || this.state.activeMetric.type ===
-    "boolean" || this.state.activeMetric.type === "enumerated") {
+    /*if (this.probe.activeMetric.type === "linear" || this.probe.activeMetric.type === "flag" || this.probe.activeMetric.type ===
+    "boolean" || this.probe.activeMetric.type === "enumerated") {
       return buckets[buckets.length - 1] + buckets[buckets.length - 1]
       - buckets[buckets.length -2];
     }*/
@@ -119,11 +136,11 @@ export class MetricData {
   };
 
   getPercentile(percentile) {
-    if (this._active.data.length < 1) {
+    if (this.probe.data.length < 1) {
       return NaN;
     }
 
-    let currentData = this._active.data;
+    let currentData = this.probe.data;
     let buckets = [
       ...currentData.map(item => item.start),
       this.getLastBucketUpper(),
@@ -148,7 +165,7 @@ export class MetricData {
   }
 
   getChange() {
-    if (this._active.data.length < 1) {
+    if (this.probe.data.length < 1) {
       return NaN;
     }
 
