@@ -27,6 +27,8 @@ export class ViewSelector extends Component {
           >
             <DistributionView
               dataStore = {this.props.dataStore}
+              activeData = {this.props.activeData}
+              activeMetric = {this.props.activeMetric}
             />
           </Tab>
           <Tab

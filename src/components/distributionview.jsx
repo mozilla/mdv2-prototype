@@ -85,8 +85,8 @@ export class DistributionView extends Component {
   }
 
   render() {
-    let metric = this.props.dataStore.active.metric;
-    let data = this.props.dataStore.active.data;
+    let metric = this.props.dataStore._active.metric;
+    let data = this.props.dataStore._active.data;
 
     const BOOL_MEASURES = [
       "scalars_devtools_onboarding_is_devtools_user",

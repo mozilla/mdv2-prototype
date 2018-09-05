@@ -3,12 +3,12 @@ import {Grid, Row} from "react-bootstrap";
 
 export class SummaryView extends Component {
   render() {
-    const median = this.props.dataStore.median.toFixed(2);
-    const nfifth = this.props.dataStore.nfifthPercentile.toFixed(2);
-    const change = this.props.dataStore.change.toFixed(2);
+    const median = this.props.dataStore._active.median.toFixed(2);
+    const nfifth = this.props.dataStore._active.nfifthPercentile.toFixed(2);
+    const change = this.props.dataStore._active.change.toFixed(2);
 
-    const metric = this.props.dataStore.active.metric;
-    const channel = this.props.dataStore.active.channel;
+    const metric = this.props.activeMetric;
+    const channel = this.props.activeChannel;
     const version = this.props.activeVersion;
 
     return (
