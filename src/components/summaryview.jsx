@@ -51,10 +51,10 @@ export class SummaryView extends Component {
     );
   }
 
-  renderFirstN(array, n) {
+  renderFirstN(array, n, total) {
     return array.map((datum, i) => {
       if (i < n) {
-        return <li> {format(".4p")(datum.proportion)} {datum.label} ({datum.count})</li>
+        return <li> {this.formatPct(datum.proportion)} of users reported {datum.label}. That is {this.formatCount(datum.count)} of {this.formatCount(total)} users.</li>
       }
       return null;
     })
@@ -68,25 +68,25 @@ export class SummaryView extends Component {
       .filter(datum => datum.label !== "spill")
       .sort((a, b) => a.count > b.count);
 
-    const pctFormat = format(".4p");
-
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.dataStore.active.version;
 
-    const NUM_COMMON_CATEGORIES = 3;
+    const total = this.props.dataStore.active.data.reduce((acc, cur) => acc + cur.count, 0)
+
+    const NUM_COMMON_CATEGORIES = 5;
 
     return (
       <Row>
-        <h3>Most Common: {orderedData[0].label} ({pctFormat(orderedData[0].proportion)})</h3>
+        <h3>Most Common: {orderedData[0].label} with {this.formatPct(orderedData[0].proportion)}</h3>
         <p>The most common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
         <ol>
-          {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES)}
+          {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES, total)}
         </ol>
-        <h3>Least Common: {reverseData[0].label} ({pctFormat(reverseData[0].proportion)})</h3>
+        <h3>Least Common: {reverseData[0].label} with {this.formatPct(reverseData[0].proportion)}</h3>
         <p>The least common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
         <ol>
-          {this.renderFirstN(reverseData, NUM_COMMON_CATEGORIES)}
+          {this.renderFirstN(reverseData, NUM_COMMON_CATEGORIES, total)}
         </ol>
       </Row>
     );
