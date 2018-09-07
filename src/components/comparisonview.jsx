@@ -81,6 +81,7 @@ export class ComparisonView extends Component {
             </div>
           </Col>
         </Row>
+        {/*
         <Row>
           <Col>
             <MetricsGraphics
@@ -97,6 +98,8 @@ export class ComparisonView extends Component {
             />
           </Col>
         </Row>
+        */}
+        {/*
         <Row>
           <Col>
             <Plot
@@ -133,6 +136,7 @@ export class ComparisonView extends Component {
             />
           </Col>
         </Row>
+        */}
         <Row>
           <Col>
             <Plot
