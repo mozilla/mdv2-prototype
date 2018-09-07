@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, DropdownButton, MenuItem} from "react-bootstrap";
-import MetricsGraphics from "react-metrics-graphics";
+//import MetricsGraphics from "react-metrics-graphics";
 import Plot from "react-plotly.js";
 import GC_MS_nightly_61 from "./../data/GC_MS_nightly_61";
 
@@ -36,10 +36,12 @@ export class ComparisonView extends Component {
       );
     }
 
+    /*
     let data = [
       this.props.dataStore.active.data,
       GC_MS_nightly_61
     ];
+    */
     let x1 = GC_MS_nightly_61.map(e => e.start);
     let y1 = GC_MS_nightly_61.map(e => e.count);
     let y2 = this.props.dataStore.active.data.map(e => e.count);
@@ -81,6 +83,7 @@ export class ComparisonView extends Component {
             </div>
           </Col>
         </Row>
+        {/*
         <Row>
           <Col>
             <MetricsGraphics
@@ -97,6 +100,8 @@ export class ComparisonView extends Component {
             />
           </Col>
         </Row>
+        */}
+        {/*
         <Row>
           <Col>
             <Plot
@@ -133,6 +138,7 @@ export class ComparisonView extends Component {
             />
           </Col>
         </Row>
+        */}
         <Row>
           <Col>
             <Plot
