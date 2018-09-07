@@ -4,6 +4,22 @@ import {Grid, Row} from "react-bootstrap";
 import {format} from "d3";
 
 export class SummaryView extends Component {
+
+  formatPct(proportion) {
+    const LOW_THRESHOLD = 0.00001
+    if (proportion < LOW_THRESHOLD) {
+      return `less than ${format(".1p")(LOW_THRESHOLD)}`;
+    } else if (proportion < 0.1) { // 10%
+      return format(".2p")(proportion);
+    } else {
+      return format(".3p")(proportion);
+    }
+  }
+
+  formatCount(count) {
+    return format(",")(count);
+  }
+
   renderBooleanText() {
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
@@ -11,25 +27,25 @@ export class SummaryView extends Component {
 
     const always = this.props.dataStore.active.data[1];
     const never = this.props.dataStore.active.data[0];
-    const totalCount = Math.ceil(always.count / always.proportion);
+    const total = Math.ceil(always.count / always.proportion);
 
-    const pctFormat = format(".4p");
-    const alwaysPct = pctFormat(always.proportion);
-    const everPct = pctFormat(1 - never.proportion);
-    const neverPct = pctFormat(never.proportion);
+    const alwaysPct = this.formatPct(always.proportion);
+    const everPct = this.formatPct(1 - never.proportion);
+    const neverPct = this.formatPct(never.proportion);
 
-    const alwaysCount = always.count;
-    const everCount = totalCount - never.count;
-    const neverCount = never.count;
+    const totalCount = this.formatCount(total);
+    const alwaysCount = this.formatCount(always.count);
+    const everCount = this.formatCount(total - never.count);
+    const neverCount = this.formatCount(never.count);
 
     return (
       <Row>
-        <h3>Always: {alwaysPct}</h3>
-        <p>Of the {totalCount} respondents, {alwaysPct} ({alwaysCount}) always respond true for {metric} on Firefox {channel} {version}.</p>
-        <h3>Ever: {everPct}</h3>
-        <p>Of the {totalCount} respondents, {everPct} ({everCount}) responded true at least once for {metric} on Firefox {channel} {version}.</p>
-        <h3>Never: {neverPct}</h3>
-        <p>Of the {totalCount} respondents, {neverPct} ({neverCount}) never responded true for {metric} on Firefox {channel} {version}.</p>
+        <h3>Always true: {alwaysPct}</h3>
+        <p>{alwaysPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {alwaysCount} of {totalCount} users.</p>
+        <h3>Ever true: {everPct}</h3>
+        <p>{everPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {everCount} of {totalCount} users.</p>
+        <h3>Never true: {neverPct}</h3>
+        <p>{neverPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {neverCount} of {totalCount} users.</p>
         <p></p>
       </Row>
     );
