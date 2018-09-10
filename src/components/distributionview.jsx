@@ -74,14 +74,7 @@ export class DistributionView extends Component {
       proportion: 1 - never.proportion - always.proportion,
     };
 
-    const threeTraces = [always, sometimes, never].map(datum => {
-      let plotDatum = this.makePlotly([datum]);
-      plotDatum.name = datum.label;
-      plotDatum.x[0] = "";
-      return plotDatum;
-    });
-
-    return threeTraces;
+    return [this.makePlotly([always, sometimes, never])];
   }
 
   render() {
