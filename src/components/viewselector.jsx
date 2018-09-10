@@ -3,7 +3,6 @@ import {Tabs, Tab} from "react-bootstrap";
 import {SummaryView} from "./summaryview.jsx";
 import {DistributionView} from "./distributionview.jsx";
 import {ComparisonView} from "./comparisonview.jsx";
-import {EvolutionView} from "./evolutionview.jsx";
 
 export class ViewSelector extends Component {
   render() {
@@ -34,14 +33,6 @@ export class ViewSelector extends Component {
             title={<span><i className="fas fa-chart-area"></i> Comparison</span>}
           >
             <ComparisonView
-              dataStore = {this.props.dataStore}
-            />
-          </Tab>
-          <Tab
-            eventKey={"evolution"}
-            title={<span><i className="fas fa-chart-line"></i> Evolution</span>}
-          >
-            <EvolutionView
               dataStore = {this.props.dataStore}
             />
           </Tab>
