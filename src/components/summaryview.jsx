@@ -31,7 +31,7 @@ export class SummaryView extends Component {
 
     const always = this.props.dataStore.active.data[1];
     const never = this.props.dataStore.active.data[0];
-    const total = Math.ceil(always.count / always.proportion);
+    const total = Math.ceil(always.count ? always.count / always.proportion : never.count / never.proportion);
 
     const alwaysPct = this.formatPct(always.proportion);
     const everPct = this.formatPct(1 - never.proportion);
