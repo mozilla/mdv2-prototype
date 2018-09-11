@@ -31,25 +31,19 @@ export class SummaryView extends Component {
 
     const always = this.props.dataStore.active.data[1];
     const never = this.props.dataStore.active.data[0];
-    const total = Math.ceil(always.count ? always.count / always.proportion : never.count / never.proportion);
 
     const alwaysPct = this.formatPct(always.proportion);
     const everPct = this.formatPct(1 - never.proportion);
     const neverPct = this.formatPct(never.proportion);
 
-    const totalCount = this.formatCount(total);
-    const alwaysCount = this.formatCount(always.count);
-    const everCount = this.formatCount(total - never.count);
-    const neverCount = this.formatCount(never.count);
-
     return (
       <Row>
         <h3>Always true: {alwaysPct}</h3>
-        <p>{alwaysPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {alwaysCount} of {totalCount} users.</p>
+        <p>For {channel} {version}, {alwaysPct} of users always reported true for {metric}</p>
         <h3>Ever true: {everPct}</h3>
-        <p>{everPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {everCount} of {totalCount} users.</p>
+        <p>For {channel} {version}, {everPct} of users ever reported true for {metric}</p>
         <h3>Never true: {neverPct}</h3>
-        <p>{neverPct} of users always respond true for {metric} on Firefox {channel} {version}. That's {neverCount} of {totalCount} users.</p>
+        <p>For {channel} {version}, {neverPct} of users never reported true for {metric}</p>
         <p></p>
       </Row>
     );
@@ -108,9 +102,9 @@ export class SummaryView extends Component {
     return (
       <Row>
         <h3>Median: {median}</h3>
-        <p>The median value for {metric} {channel} {version} is {median}.</p>
+        <p>The median value for {metric} on {channel} {version} was {median}.</p>
         <h3>95th Percentile: {nfifth}</h3>
-        <p>The 95th percentile for {metric} {channel} {version} is {nfifth}.</p>
+        <p>The 95th percentile for {metric} on {channel} {version} was {nfifth}.</p>
         <h3>
           {change > 0 &&
             <i className="fas fa-arrow-up"></i>
@@ -118,7 +112,7 @@ export class SummaryView extends Component {
           {change < 0 &&
             <i className="fas fa-arrow-down"></i>
           } Change: {change}%</h3>
-        <p>Since {channel} {version - 1}, the median value for {metric} has
+        <p>From {channel} {version - 1} to {version}, the median value for {metric}
           {change > 0 &&
             " increased"
           }
