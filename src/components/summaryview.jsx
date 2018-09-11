@@ -127,8 +127,10 @@ export class SummaryView extends Component {
       "scalars_telemetry_os_shutting_down",
     ];
 
+    // I suppose we could check for the presence of `label` instead.
     const CATEGORICAL_MEASURES = [
       "HTTP_SCHEME_UPGRADE_TYPE",
+      "FX_PREFERENCES_CATEGORY_OPENED_V2",
     ];
 
     let innerText;

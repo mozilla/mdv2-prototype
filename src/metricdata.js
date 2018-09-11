@@ -32,6 +32,7 @@ export class MetricData {
 
   get metricOptions() {
     return [
+      "FX_PREFERENCES_CATEGORY_OPENED_V2",
       "GC_MS",
       "HTTP_SCHEME_UPGRADE_TYPE",
       "scalars_devtools_onboarding_is_devtools_user",
