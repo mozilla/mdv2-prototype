@@ -6,11 +6,15 @@ import {format} from "d3";
 export class SummaryView extends Component {
 
   formatPct(proportion) {
-    const LOW_THRESHOLD = 0.00001
-    if (proportion < LOW_THRESHOLD) {
+    const LOW_THRESHOLD = 0.001; // 0.1%
+    if (proportion === 0) {
+      return `0%`;
+    } else if (proportion < LOW_THRESHOLD) {
       return `less than ${format(".1p")(LOW_THRESHOLD)}`;
     } else if (proportion < 0.1) { // 10%
       return format(".2p")(proportion);
+    } else if (proportion > 0.999) { // 99.9%
+      return format(".3p")(0.999);
     } else {
       return format(".3p")(proportion);
     }
