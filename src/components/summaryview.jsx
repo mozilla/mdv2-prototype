@@ -49,10 +49,17 @@ export class SummaryView extends Component {
     );
   }
 
-  renderFirstN(array, n, total) {
+  renderFirstN(array, n) {
     return array.map((datum, i) => {
       if (i < n) {
-        return <li> {this.formatPct(datum.proportion)} of users reported {datum.label}. That is {this.formatCount(datum.count)} of {this.formatCount(total)} users.</li>
+        let concat = "";
+        if (i < n - 1) {
+          concat += ", ";
+        }
+        if (i === n - 2) {
+          concat += "and ";
+        }
+        return <span> {datum.label} ({this.formatPct(datum.proportion)}){concat}</span>
       }
       return null;
     })
@@ -62,30 +69,19 @@ export class SummaryView extends Component {
     const orderedData = this.props.dataStore.active.data
       .filter(datum => datum.label !== "spill")
       .sort((a, b) => a.count < b.count);
-    const reverseData = this.props.dataStore.active.data
-      .filter(datum => datum.label !== "spill")
-      .sort((a, b) => a.count > b.count);
 
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.dataStore.active.version;
 
-    const total = this.props.dataStore.active.data.reduce((acc, cur) => acc + cur.count, 0)
-
-    const NUM_COMMON_CATEGORIES = 5;
+    const NUM_COMMON_CATEGORIES = 3;
 
     return (
       <Row>
         <h3>Most Common: {orderedData[0].label} with {this.formatPct(orderedData[0].proportion)}</h3>
-        <p>The most common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
-        <ol>
-          {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES, total)}
-        </ol>
-        <h3>Least Common: {reverseData[0].label} with {this.formatPct(reverseData[0].proportion)}</h3>
-        <p>The least common categories reported by users for {metric} on Firefox {channel} {version} are:</p>
-        <ol>
-          {this.renderFirstN(reverseData, NUM_COMMON_CATEGORIES, total)}
-        </ol>
+        <p>The most common categories reported by users for {metric} on Firefox {channel} {version} are
+          {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES)}.
+        </p>
       </Row>
     );
   }
