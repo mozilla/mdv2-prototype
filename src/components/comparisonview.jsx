@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, DropdownButton, MenuItem} from "react-bootstrap";
-//import MetricsGraphics from "react-metrics-graphics";
 import Plot from "react-plotly.js";
 import GC_MS_nightly_61 from "./../data/GC_MS_nightly_61";
 
@@ -36,12 +35,6 @@ export class ComparisonView extends Component {
       );
     }
 
-    /*
-    let data = [
-      this.props.dataStore.active.data,
-      GC_MS_nightly_61
-    ];
-    */
     let x1 = GC_MS_nightly_61.map(e => e.start);
     let y1 = GC_MS_nightly_61.map(e => e.count);
     let y2 = this.props.dataStore.active.data.map(e => e.count);
@@ -83,62 +76,6 @@ export class ComparisonView extends Component {
             </div>
           </Col>
         </Row>
-        {/*
-        <Row>
-          <Col>
-            <MetricsGraphics
-              title={metricName}
-              data={data}
-              chart_type="line"
-              x_label={metricName}
-              y_label="Proportion of Users"
-              y_accessor="proportion"
-              x_accessor="start"
-              area={[true, true]}
-              x_scale_type= "log"
-              width= {this.state.plotWidth}
-            />
-          </Col>
-        </Row>
-        */}
-        {/*
-        <Row>
-          <Col>
-            <Plot
-              data={[
-                {
-                  x: x1,
-                  y: y1,
-                  type: "bar",
-                  name: activeChannel + " " + this.state.compareVersion,
-                  opacity: 0.5,
-                  mode: "markers",
-                },
-                {
-                  x: x1,
-                  y: y2,
-                  type: "bar",
-                  name: activeChannel + " " + activeVersion,
-                  opacity: 0.6,
-                  mode: "markers",
-                },
-              ]}
-              layout={{
-                barmode: "overlay",
-                title: metricName,
-                xaxis: {
-                  type: "category",
-                  title: metricName,
-                },
-                yaxis: {
-                  title: "Number of Users",
-                },
-                width: this.state.plotWidth,
-              }}
-            />
-          </Col>
-        </Row>
-        */}
         <Row>
           <Col>
             <Plot
