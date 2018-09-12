@@ -20,10 +20,6 @@ export class SummaryView extends Component {
     }
   }
 
-  formatCount(count) {
-    return format(",")(count);
-  }
-
   renderBooleanText() {
     const metric = this.props.dataStore.active.metric;
     const channel = this.props.dataStore.active.channel;
