@@ -73,6 +73,7 @@ export class MetricData {
 
   updateCachedData() {
     this.cached.mean = this.getMean().toFixed(2);
+    this.cached.lastMedian = this.cached.median;
     this.cached.median = this.getPercentile(50).toFixed(2);
     this.cached.nfifth = this.getPercentile(95).toFixed(2);
     this.cached.change = this.getChange().toFixed(2);
@@ -176,7 +177,7 @@ export class MetricData {
   }
 
   getChange() {
-    if (this._active.data.length < 1) {
+    if (this._active.data.length < 1 || this.cached.lastMedian === 0) {
       return NaN;
     }
 
