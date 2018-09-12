@@ -87,14 +87,8 @@ export class DistributionView extends Component {
     ];
 
     let plotData;
-    let extraMessage;
     if (BOOL_MEASURES.includes(metric)) {
       plotData = this.makeBooleanData(metric, data);
-      const trueCount = Math.ceil(data[0].count / data[0].proportion) - data[0].count;
-      const trueProportion = ((1 - data[0].proportion) * 100).toFixed(2);
-      extraMessage = (
-        <p>{trueCount} users ({trueProportion}% of respondents) reported true at least once.</p>
-      );
     } else {
       plotData = [this.makePlotly(data)];
     }
@@ -146,9 +140,6 @@ export class DistributionView extends Component {
               currentData = {data}
             />
           }
-        </Row>
-        <Row>
-          {extraMessage}
         </Row>
       </Grid>
     );
