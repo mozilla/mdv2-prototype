@@ -14,3 +14,11 @@
   margin: 10px 0 10px 10px;
   display: inline-block;
 }
+
+.metric-name {
+  font-style: italic;
+}
+
+.category-label {
+  font-style: italic;
+}

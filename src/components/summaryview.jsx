@@ -3,41 +3,41 @@ import {Grid, Row} from "react-bootstrap";
 
 import {format} from "d3";
 
+function formatPct(proportion) {
+  const LOW_THRESHOLD = 0.001; // 0.1%
+  if (proportion === 0) {
+    return `0%`;
+  } else if (proportion < LOW_THRESHOLD) {
+    return `less than ${format(".1p")(LOW_THRESHOLD)}`;
+  } else if (proportion < 0.1) { // 10%
+    return format(".2p")(proportion);
+  } else if (proportion > 0.999) { // 99.9%
+    return format(".3p")(0.999);
+  } else {
+    return format(".3p")(proportion);
+  }
+}
+
 export class SummaryView extends Component {
 
-  formatPct(proportion) {
-    const LOW_THRESHOLD = 0.001; // 0.1%
-    if (proportion === 0) {
-      return `0%`;
-    } else if (proportion < LOW_THRESHOLD) {
-      return `less than ${format(".1p")(LOW_THRESHOLD)}`;
-    } else if (proportion < 0.1) { // 10%
-      return format(".2p")(proportion);
-    } else if (proportion > 0.999) { // 99.9%
-      return format(".3p")(0.999);
-    } else {
-      return format(".3p")(proportion);
-    }
-  }
-
   renderBooleanText() {
-    const metric = this.props.dataStore.active.metric;
+    const metric = <span className="metric-name">{this.props.dataStore.active.metric}</span>;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.dataStore.active.version;
 
     const always = this.props.dataStore.active.data[1];
     const never = this.props.dataStore.active.data[0];
 
-    const alwaysPct = this.formatPct(always.proportion);
-    const everPct = this.formatPct(1 - never.proportion);
-    const neverPct = this.formatPct(never.proportion);
+    const alwaysPct = formatPct(always.proportion);
+    const everPct = formatPct(1 - never.proportion);
+    const neverPct = formatPct(never.proportion);
 
     return (
       <Row>
         <h3>Always true: {alwaysPct}</h3>
         <p>For {channel} {version}, {alwaysPct} of users always reported true for {metric}</p>
         <h3>Ever true: {everPct}</h3>
-        <p>For {channel} {version}, {everPct} of users ever reported true for {metric}</p>
+        <p>For {channel} {version}, {everPct} of users reported true at least once for {metric}</p>
         <h3>Never true: {neverPct}</h3>
         <p>For {channel} {version}, {neverPct} of users never reported true for {metric}</p>
         <p></p>
@@ -55,7 +55,7 @@ export class SummaryView extends Component {
         if (i === n - 2) {
           concat += "and ";
         }
-        return <span> {datum.label} ({this.formatPct(datum.proportion)}){concat}</span>
+        return <span key={i}> <q className="category-label">{datum.label}</q> ({formatPct(datum.proportion)}){concat}</span>
       }
       return null;
     })
@@ -66,7 +66,7 @@ export class SummaryView extends Component {
       .filter(datum => datum.label !== "spill")
       .sort((a, b) => a.count < b.count);
 
-    const metric = this.props.dataStore.active.metric;
+    const metric = <span className="metric-name">{this.props.dataStore.active.metric}</span>;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.dataStore.active.version;
 
@@ -74,7 +74,7 @@ export class SummaryView extends Component {
 
     return (
       <Row>
-        <h3>Most Common: {orderedData[0].label} with {this.formatPct(orderedData[0].proportion)}</h3>
+        <h3>Most Common: <q className="category-label">{orderedData[0].label}</q> with {formatPct(orderedData[0].proportion)}</h3>
         <p>The most common categories reported by users for {metric} on Firefox {channel} {version} are
           {this.renderFirstN(orderedData, NUM_COMMON_CATEGORIES)}.
         </p>
@@ -87,7 +87,7 @@ export class SummaryView extends Component {
     const nfifth = this.props.dataStore.nfifthPercentile.toFixed(2);
     const change = this.props.dataStore.change.toFixed(2);
 
-    const metric = this.props.dataStore.active.metric;
+    const metric = <span className="metric-name">{this.props.dataStore.active.metric}</span>;
     const channel = this.props.dataStore.active.channel;
     const version = this.props.dataStore.active.version;
 
