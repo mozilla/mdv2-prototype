@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, DropdownButton, MenuItem} from "react-bootstrap";
-import Plot from "react-plotly.js";
 import {MetricData} from "../metricdata.js";
+import {BarPlot} from "./barplot.jsx";
 
 export class ComparisonView extends Component {
   constructor(props) {
@@ -14,10 +14,6 @@ export class ComparisonView extends Component {
     };
   }
 
-  onResize = () => {
-    this.setState({plotWidth: 0.75 * window.innerWidth});
-  };
-
   handleChange = (event) => {
     this.setState({compareVersion: event});
   }
@@ -25,15 +21,6 @@ export class ComparisonView extends Component {
   async loadDataToState(metric, channel, version) {
     await this.dataStore.loadDataFor(metric, channel, version);
     this.setState({compareData: this.dataStore.active});
-  }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.onResize);
-    this.onResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.onResize);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -54,7 +41,7 @@ export class ComparisonView extends Component {
   }
 
   render() {
-    const {metric, channel, version} = this.props.dataStore.active;
+    const {metric} = this.props.dataStore.active;
     const COMPARABLE_MEASURES = [
       "GC_MS",
       "scalars_timestamps_first_paint",
@@ -65,10 +52,6 @@ export class ComparisonView extends Component {
         <div>Comparison View is currenty not supported for <span className="metric-name">{this.props.dataStore.active.metric}</span></div>
       );
     }
-
-    let x1 = this.state.compareData.data.map(e => e.start);
-    let y1 = this.state.compareData.data.map(e => e.count);
-    let y2 = this.props.dataStore.active.data.map(e => e.count);
 
     return (
       <Grid  className="comparison view" fluid>
@@ -104,40 +87,9 @@ export class ComparisonView extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
-            <Plot
-              data={[
-                {
-                  x: x1,
-                  y: y1,
-                  type: "bar",
-                  name: channel + " " + this.state.compareVersion,
-                  opacity: 0.5,
-                  mode: "markers",
-                },
-                {
-                  x: x1,
-                  y: y2,
-                  type: "bar",
-                  name: channel + " " + version,
-                  opacity: 0.6,
-                  mode: "markers",
-                },
-              ]}
-              layout={{
-                barmode: "group",
-                title: metric,
-                xaxis: {
-                  type: "category",
-                  title: metric,
-                },
-                yaxis: {
-                  title: "Number of Users",
-                },
-                width: this.state.plotWidth,
-              }}
-            />
-          </Col>
+          <BarPlot
+            data={[this.state.compareData, this.props.dataStore.active]}
+          />
         </Row>
       </Grid>
     );
