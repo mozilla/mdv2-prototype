@@ -22,3 +22,7 @@
 .category-label {
   font-style: italic;
 }
+
+.nav-tabs > li:first-child {
+  margin-inline-start: 1em;
+}
