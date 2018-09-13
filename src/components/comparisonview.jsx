@@ -41,18 +41,6 @@ export class ComparisonView extends Component {
   }
 
   render() {
-    const {metric} = this.props.dataStore.active;
-    const COMPARABLE_MEASURES = [
-      "GC_MS",
-      "scalars_timestamps_first_paint",
-      "scalars_browser_engagement_tab_open_event_count",
-    ];
-    if (!COMPARABLE_MEASURES.includes(metric) || !this.state.compareData) {
-      return (
-        <div>Comparison View is currenty not supported for <span className="metric-name">{this.props.dataStore.active.metric}</span></div>
-      );
-    }
-
     return (
       <Grid  className="comparison view" fluid>
         <Row>
