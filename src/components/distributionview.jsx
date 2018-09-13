@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {Grid, Row, Col, ToggleButtonGroup, ToggleButton} from "react-bootstrap";
 import {TableMode} from "./tablemode.jsx";
-import Plot from "react-plotly.js";
-import {format} from "d3";
+import {BarPlot} from "./barplot.jsx";
 
 export class DistributionView extends Component {
   constructor(props) {
@@ -10,88 +9,15 @@ export class DistributionView extends Component {
     this.state = {
       mode: "graph",
     };
-
-    this.onResize = () => {
-      this.setState({plotWidth: 0.75 * window.innerWidth});
-    };
-
-    this.formatCount = (count) => {
-      // For values with fewer than four digits, just display the value. For
-      // values with more than four digits, show three sig figs and a suffix.
-      return count < 1000 ? count : format(".3s")(count);
-    };
-
-    this.makePlotly = (data) => {
-      let plotlyData = {
-        type: "bar",
-        x: [],
-        y: [],
-        text: [],
-        customdata: [],
-        hoverinfo: "y+text",
-      };
-
-      for (let {start, label, proportion, count, end} of data) {
-        let x;
-        let text;
-        if (label) {
-          x = label;
-          text = `${label} - ${this.formatCount(count)} clients`;
-        } else {
-          x = start;
-          text = `[${start}, ${end-1}) - ${this.formatCount(count)} clients`;
-        }
-        plotlyData.x.push(x);
-        plotlyData.text.push(text);
-        plotlyData.y.push(proportion);
-        plotlyData.customdata.push(count);
-      }
-
-      return plotlyData;
-    };
   }
 
   handleChange = (event) => {
     this.setState({mode : event,});
   }
 
-  componentDidMount() {
-    window.addEventListener("resize", this.onResize);
-    this.onResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.onResize);
-  }
-
-  makeBooleanData(metric, [never, always]) {
-    const totalCount = Math.ceil(never.count / never.proportion);
-    const sometimes = {
-      start: 2,
-      end: null,
-      label: "sometimes",
-      count: totalCount - never.count - always.count,
-      proportion: 1 - never.proportion - always.proportion,
-    };
-
-    return [this.makePlotly([always, sometimes, never])];
-  }
-
   render() {
     let metric = this.props.dataStore.active.metric;
     let data = this.props.dataStore.active.data;
-
-    const BOOL_MEASURES = [
-      "scalars_devtools_onboarding_is_devtools_user",
-      "scalars_telemetry_os_shutting_down",
-    ];
-
-    let plotData;
-    if (BOOL_MEASURES.includes(metric)) {
-      plotData = this.makeBooleanData(metric, data);
-    } else {
-      plotData = [this.makePlotly(data)];
-    }
 
     return (
       <Grid  className="distribution view" fluid>
@@ -116,22 +42,8 @@ export class DistributionView extends Component {
         </Row>
         <Row>
           {this.state.mode === "graph" &&
-            <Plot
-              data={plotData}
-              layout={ {
-                type: "bar",
-                title: metric,
-                width: this.state.plotWidth,
-                xaxis: {
-                  type: "category",
-                  title: metric,
-                },
-                yaxis: {
-                  title: "Proportion of Users",
-                  hoverformat: ".4p",
-                  tickformat: ".3p",
-                },
-              } }
+            <BarPlot
+              data={[this.props.dataStore.active]}
             />
           }
           {this.state.mode === "table" &&
