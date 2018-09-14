@@ -17,7 +17,7 @@ export class TableMode extends Component {
           <tbody>
             {this.props.currentData.map( (data, index) =>
               <tr key={index}>
-                <td>{data.label}</td>
+                <td>{data.label === "spill" ? "other" : data.label}</td>
                 <td>{data.count}</td>
                 <td>{data.proportion}</td>
               </tr>
