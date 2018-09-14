@@ -4,6 +4,17 @@ import "react-bootstrap-autosuggest/src/Autosuggest.scss";
 
 export class MetricSelector extends React.Component {
   render () {
+
+    const DESCRIPTIONS = {
+      "FX_PREFERENCES_CATEGORY_OPENED_V2": "Count how often each preference category is opened.",
+      "GC_MS": "Time spent running JS GC (ms)",
+      "HTTP_SCHEME_UPGRADE_TYPE": "Was the URL upgraded to HTTPS?",
+      "scalars_devtools_onboarding_is_devtools_user": "How many users are flagged as existing devtools users.",
+      "scalars_browser_engagement_tab_open_event_count": "The count of tab open events per subsession, across all windows, after the session has been restored. This includes tab open events from private windows and from manual session restorations (i.e. after crashes and from about:home).",
+      "scalars_telemetry_os_shutting_down": "Records true if there is a signal that Firefox was quitting because the OS was shutting down. Only available on Windows.",
+      "scalars_timestamps_first_paint": "Record the timestamp of the first content window paint, in milliseconds since process start.",
+    };
+
     return (
       <form
         id="selector"
@@ -17,6 +28,7 @@ export class MetricSelector extends React.Component {
           required={true}
           ref={input => this.search = input}
         />
+        <p className="metric-description">{DESCRIPTIONS[this.props.activeMetric]}</p>
       </form>
     );
   }
