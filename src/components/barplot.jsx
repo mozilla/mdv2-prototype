@@ -73,12 +73,13 @@ export class BarPlot extends Component {
     this.state = {
       plotWidth: window.innerWidth,
     };
-  }
 
-  onResize() {
-    this.setState({
-      plotWidth: 0.75 * window.innerWidth,
-    });
+    // bind `this` so setState is called on the Component.
+    this.onResize = () => {
+      this.setState({
+        plotWidth: 0.75 * window.innerWidth,
+      });
+    };
   }
 
   componentDidMount() {
