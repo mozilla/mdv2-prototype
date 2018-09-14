@@ -18,12 +18,17 @@ function makePlotly(channel, version, data) {
     hoverinfo: "y+text",
   };
 
-  for (let {start, label, proportion, count, end} of data) {
+  for (const {start, label, proportion, count, end} of data) {
     let x;
     let text;
     if (label) {
-      x = label;
-      text = `${label} - ${formatCount(count)} users`;
+      if (label === "spill") {
+        x = "other";
+        text = `Invalid samples - ${formatCount(count)} users`;
+      } else {
+        x = label;
+        text = `${label} - ${formatCount(count)} users`;
+      }
     } else {
       x = start;
       if (!end) {
