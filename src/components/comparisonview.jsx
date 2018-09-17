@@ -52,7 +52,7 @@ export class ComparisonView extends Component {
         </Row>
         <Row>
           <Col>
-            <div>Comparing <span class="metric-name">{metric}</span> from {channel} {version} against {channel}
+            <div>Comparing <span className="metric-name">{metric}</span> from {channel} {version} against {channel}
               <DropdownButton
                 id="selector"
                 title={this.state.compareVersion}
