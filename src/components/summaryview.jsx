@@ -119,8 +119,8 @@ export class SummaryView extends Component {
     const metric = this.props.dataStore.active.metric;
 
     const BOOL_MEASURES = [
-      "scalars_devtools_onboarding_is_devtools_user",
-      "scalars_telemetry_os_shutting_down",
+      "devtools.onboarding.is_devtools_user",
+      "telemetry.os_shutting_down",
     ];
 
     // I suppose we could check for the presence of `label` instead.

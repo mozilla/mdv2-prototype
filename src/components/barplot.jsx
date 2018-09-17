@@ -50,8 +50,8 @@ function prepData({metric, channel, version, data}) {
   let plotData = data;
 
   const BOOL_MEASURES = [
-    "scalars_devtools_onboarding_is_devtools_user",
-    "scalars_telemetry_os_shutting_down",
+    "devtools.onboarding.is_devtools_user",
+    "telemetry.os_shutting_down",
   ];
 
   if (BOOL_MEASURES.includes(metric)) {

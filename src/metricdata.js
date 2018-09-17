@@ -35,10 +35,10 @@ export class MetricData {
       "FX_PREFERENCES_CATEGORY_OPENED_V2",
       "GC_MS",
       "HTTP_SCHEME_UPGRADE_TYPE",
-      "scalars_devtools_onboarding_is_devtools_user",
-      "scalars_browser_engagement_tab_open_event_count",
-      "scalars_telemetry_os_shutting_down",
-      "scalars_timestamps_first_paint",
+      "devtools.onboarding.is_devtools_user",
+      "browser.engagement.tab_open_event_count",
+      "telemetry.os_shutting_down",
+      "timestamps.first_paint",
     ];
   }
 
