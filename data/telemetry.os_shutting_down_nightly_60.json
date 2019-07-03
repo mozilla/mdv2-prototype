@@ -1,0 +1,16 @@
+[
+  {
+    "start": 0,
+    "end": 1,
+    "label": "never",
+    "count": 5762,
+    "proportion": 0.785977356
+  },
+  {
+    "start": 1,
+    "end": 2,
+    "label": "always",
+    "count": 2,
+    "proportion": 0.000272814
+  }
+]

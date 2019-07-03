@@ -1,0 +1,72 @@
+[
+  {
+    "start": 0,
+    "end": 1,
+    "label": "unknown",
+    "count": 11363,
+    "proportion": 0.05397343129027661
+  },
+  {
+    "start": 1,
+    "end": 2,
+    "label": "searchresults",
+    "count": 7704,
+    "proportion": 0.03659293506658011
+  },
+  {
+    "start": 2,
+    "end": 3,
+    "label": "general",
+    "count": 94054,
+    "proportion": 0.44676124578431525
+  },
+  {
+    "start": 3,
+    "end": 4,
+    "label": "applications",
+    "count": 0,
+    "proportion": 0
+  },
+  {
+    "start": 4,
+    "end": 5,
+    "label": "privacy",
+    "count": 41964,
+    "proportion": 0.1993302405117406
+  },
+  {
+    "start": 5,
+    "end": 6,
+    "label": "sync",
+    "count": 18305,
+    "proportion": 0.08694998179140871
+  },
+  {
+    "start": 6,
+    "end": 7,
+    "label": "advanced",
+    "count": 0,
+    "proportion": 0
+  },
+  {
+    "start": 7,
+    "end": 8,
+    "label": "search",
+    "count": 20841,
+    "proportion": 0.09899456908972877
+  },
+  {
+    "start": 8,
+    "end": 9,
+    "label": "home",
+    "count": 16294,
+    "proportion": 0.07739759646594993
+  },
+  {
+    "start": 9,
+    "end": null,
+    "label": "spill",
+    "count": 0,
+    "proportion": 0
+  }
+]
