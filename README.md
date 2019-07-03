@@ -1,8 +1,8 @@
 ## mdv2
 
-[mdv2](https://mozilla.github.io/mdv2/) is a prototype Telemetry Mesurement
-Dashboard built to evaluate designs and architectures for suitability as a
-replacement for the venerable telemetry.mozilla.org
+[mdv2](https://mozilla.github.io/mdv2-prototype/) is a prototype Telemetry
+Mesurement Dashboard built to evaluate designs and architectures for
+suitability as a replacement for the venerable telemetry.mozilla.org
 [Measurement Dashboard](https://telemetry.mozilla.org/new-pipeline/dist.html).
 
 It is built with sample data, a custom data format, React components, Bootstrap

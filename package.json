@@ -252,7 +252,7 @@
     }
   },
   "private": true,
-  "homepage": "https://mozilla.github.io/mdv2/",
+  "homepage": "https://mozilla.github.io/mdv2-prototype/",
   "dependencies": {
     "ajv": "^6.5.2",
     "css-loader": "^0.28.11",
