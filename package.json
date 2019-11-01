@@ -256,7 +256,7 @@
   "dependencies": {
     "ajv": "^6.5.2",
     "css-loader": "^0.28.11",
-    "jquery": "^1.12.4",
+    "jquery": "^3.4.0",
     "metrics-graphics": "^2.15.6",
     "node-sass": "^4.9.2",
     "npm": "^6.1.0",
